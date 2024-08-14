@@ -36,15 +36,15 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
 
         // Animate "Meal"
         ObjectAnimator mealAnimator = ObjectAnimator.ofFloat(mealTextView, "translationX", -500f, 0f);
-        mealAnimator.setDuration(1000);
+        mealAnimator.setDuration(3000);
         ObjectAnimator mealAlphaAnimator = ObjectAnimator.ofFloat(mealTextView, "alpha", 0f, 1f);
-        mealAlphaAnimator.setDuration(1000);
+        mealAlphaAnimator.setDuration(3000);
 
         // Animate "Planner"
         ObjectAnimator plannerAnimator = ObjectAnimator.ofFloat(plannerTextView, "translationX", 500f, 0f);
-        plannerAnimator.setDuration(1000);
+        plannerAnimator.setDuration(3000);
         ObjectAnimator plannerAlphaAnimator = ObjectAnimator.ofFloat(plannerTextView, "alpha", 0f, 1f);
-        plannerAlphaAnimator.setDuration(1000);
+        plannerAlphaAnimator.setDuration(3000);
 
         // Play animations
         AnimatorSet animatorSet = new AnimatorSet();

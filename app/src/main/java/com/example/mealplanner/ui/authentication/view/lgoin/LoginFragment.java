@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.firebase.AuthModel;
 import com.example.mealplanner.data.firebase.AuthModelImpl;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.ui.authentication.presnter.login.LoginPresenter;
 import com.example.mealplanner.ui.authentication.presnter.login.LoginPresenterImpl;
 
@@ -45,7 +47,7 @@ public class LoginFragment extends Fragment implements LoginView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AuthModel model = new AuthModelImpl();
+        AppRepo model = AppRepo.getInstance(new AuthModelImpl(), SharedPerferencesImp.getInstance(view.getContext()));
         presenter = new LoginPresenterImpl(this, model);
 
         emailField = view.findViewById(R.id.emailField);

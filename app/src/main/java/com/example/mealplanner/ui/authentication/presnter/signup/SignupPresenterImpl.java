@@ -1,6 +1,7 @@
 package com.example.mealplanner.ui.authentication.presnter.signup;
 
 import com.example.mealplanner.data.firebase.AuthModel;
+import com.example.mealplanner.data.repo.Repository;
 import com.example.mealplanner.ui.authentication.view.signup.SignupView;
 
 public class SignupPresenterImpl implements SignupPresenter{
@@ -15,7 +16,7 @@ public class SignupPresenterImpl implements SignupPresenter{
     @Override
     public void signUp(String email, String password) {
         view.showLoading();
-        model.signUp(email, password, new AuthModel.AuthCallback() {
+        model.signUp(email, password, new Repository.NetworkCallback() {
             @Override
             public void onSuccess() {
                 view.hideLoading();

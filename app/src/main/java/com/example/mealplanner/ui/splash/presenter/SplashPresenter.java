@@ -2,6 +2,10 @@ package com.example.mealplanner.ui.splash.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.example.mealplanner.data.firebase.AuthModelImpl;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.ui.splash.view.SplashView;
 
 import java.util.concurrent.TimeUnit;
@@ -12,19 +16,16 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public class SplashPresenter implements SplashPre{
     private SplashView _view;
-    SharedPreferences setting;
+    private AppRepo repo;
 
     public SplashPresenter(Context context, SplashView view) {
         this._view = view;
-        this.setting = context.getSharedPreferences("your_preference_name", Context.MODE_PRIVATE);
+        this.repo = AppRepo.getInstance(new AuthModelImpl(),SharedPerferencesImp.getInstance(context));
     }
 
     public void isAppUser()
     {
-        String username = setting.getString("User_Name","N/A");
-        String userPassword = setting.getString("User_Password","N/A");
-
-        if(username != "N/A" && userPassword != "N/A")
+        if(repo.readPrefernces())
         {
             _view.isAuthentice(true);
         }

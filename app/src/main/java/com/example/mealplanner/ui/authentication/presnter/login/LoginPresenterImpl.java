@@ -1,13 +1,15 @@
 package com.example.mealplanner.ui.authentication.presnter.login;
 
 import com.example.mealplanner.data.firebase.AuthModel;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.Repository;
 import com.example.mealplanner.ui.authentication.view.lgoin.LoginView;
 
 public class LoginPresenterImpl implements LoginPresenter{
-    private AuthModel model;
+    private AppRepo model;
     private LoginView view;
 
-    public LoginPresenterImpl(LoginView view, AuthModel model) {
+    public LoginPresenterImpl(LoginView view, AppRepo model) {
         this.view = view;
         this.model = model;
     }
@@ -15,7 +17,7 @@ public class LoginPresenterImpl implements LoginPresenter{
     @Override
     public void signIn(String email, String password) {
         view.showLoading();
-        model.signIn(email, password, new AuthModel.AuthCallback() {
+        model.signInApp(email, password, new Repository.NetworkCallback(){
             @Override
             public void onSuccess() {
                 view.hideLoading();
