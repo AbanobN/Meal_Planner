@@ -29,6 +29,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
 
         presenter = new SplashPresenter(this, this);
         presenter.isAppUser();
+        presenter.start(5L);
 
         TextView mealTextView = findViewById(R.id.meal);
         TextView plannerTextView = findViewById(R.id.Planner);
@@ -62,6 +63,11 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
         {
             intent = new Intent(SplashActivity.this, AuthenticationActivity.class);
         }
+    }
+
+    @Override
+    public void navigateToNextActivity() {
         startActivity(intent);
+        finish();
     }
 }

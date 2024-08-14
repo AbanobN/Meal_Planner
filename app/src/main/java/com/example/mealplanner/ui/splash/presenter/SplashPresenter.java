@@ -2,8 +2,13 @@ package com.example.mealplanner.ui.splash.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.example.mealplanner.ui.splash.view.SplashView;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public class SplashPresenter implements SplashPre{
     private SplashView _view;
@@ -26,6 +31,14 @@ public class SplashPresenter implements SplashPre{
         else{
             _view.isAuthentice(false);
         }
+    }
+
+    public void start(Long time) {
+        Observable<Long> doAction = Observable.timer(time, TimeUnit.SECONDS);
+
+        doAction.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((i) -> {
+            _view.navigateToNextActivity();
+        });
     }
 
 }

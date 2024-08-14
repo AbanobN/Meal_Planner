@@ -47,4 +47,8 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
 
+    //RXJava
+    implementation (libs.rxjava)
+    implementation (libs.rxandroid)
+
 }
