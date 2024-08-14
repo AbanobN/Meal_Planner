@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
         ObjectAnimator plannerAlphaAnimator = ObjectAnimator.ofFloat(plannerTextView, "alpha", 0f, 1f);
         plannerAlphaAnimator.setDuration(1000);
 
-        // Play animations the animations
+        // Play animations
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(mealAnimator, mealAlphaAnimator, plannerAnimator, plannerAlphaAnimator);
         animatorSet.start();
