@@ -18,5 +18,9 @@
         android:id="@+id/loginFragment"
         android:name="com.example.mealplanner.ui.authentication.view.lgoin.LoginFragment"
         android:label="login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
 </navigation>

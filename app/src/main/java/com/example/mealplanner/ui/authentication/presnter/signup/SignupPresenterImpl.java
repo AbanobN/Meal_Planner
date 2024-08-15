@@ -17,19 +17,21 @@ public class SignupPresenterImpl implements SignupPresenter , NetworkCallback {
 
     @Override
     public void onSuccess() {
-        view.hideLoading();
         view.onSignUpSuccess();
     }
 
     @Override
     public void onFailure(Exception e) {
-        view.hideLoading();
         view.onSignUpFailure(e.getMessage());
     }
 
     @Override
-    public void signUp(String email, String password) {
-        view.showLoading();
+    public void signUp(String email, String password , String rePassword) {
+        if(!password.equals(rePassword))
+        {
+            view.passwordDoNotMatch();
+            return;
+        }
         model.signUpApp(email, password,this);
     }
 
