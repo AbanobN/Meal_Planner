@@ -27,7 +27,6 @@ import com.example.mealplanner.ui.authentication.presnter.signup.SignupPresenter
 public class SignupFragment extends Fragment implements SignupView{
 
     private SignupPresenter presenter;
-    private EditText userName;
     private EditText userEmail;
     private EditText userPass;
     private EditText userRePass;
@@ -55,7 +54,6 @@ public class SignupFragment extends Fragment implements SignupView{
         presenter = new SignupPresenterImpl(this, model);
 
         this.view = view.getContext();
-        userName = view.findViewById(R.id.nameField);
         userEmail = view.findViewById(R.id.semailFeild);
         userPass = view.findViewById(R.id.passwordField);
         userRePass = view.findViewById(R.id.repasswordField);
