@@ -1,8 +1,9 @@
 package com.example.mealplanner.data.repo;
 
-import com.example.mealplanner.data.firebase.AuthModel;
-import com.example.mealplanner.data.firebase.AuthModelImpl;
-import com.example.mealplanner.data.sharedpreferences.SharedPerferencesImp;
+import android.util.Log;
+
+import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
+import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 
 public class AppRepo implements Repository{
     private static AppRepo instance = null;
@@ -25,6 +26,7 @@ public class AppRepo implements Repository{
 
     @Override
     public boolean readPrefernces() {
+
         return shPer.readFromPreferences();
     }
 
@@ -40,6 +42,7 @@ public class AppRepo implements Repository{
 
     @Override
     public void signUpApp(String email, String password, NetworkCallback callback) {
+
         firebaseAuth.signUp(email,password,callback);
     }
 

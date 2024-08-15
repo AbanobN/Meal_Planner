@@ -1,11 +1,10 @@
 package com.example.mealplanner.ui.splash.presenter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.example.mealplanner.data.firebase.AuthModelImpl;
+import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.data.sharedpreferences.SharedPerferencesImp;
+import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.ui.splash.view.SplashView;
 
 import java.util.concurrent.TimeUnit;

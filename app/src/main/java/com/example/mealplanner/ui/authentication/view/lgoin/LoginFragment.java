@@ -1,12 +1,14 @@
 package com.example.mealplanner.ui.authentication.view.lgoin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.firebase.AuthModel;
-import com.example.mealplanner.data.firebase.AuthModelImpl;
+import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.data.sharedpreferences.SharedPerferencesImp;
+import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.ui.authentication.presnter.login.LoginPresenter;
 import com.example.mealplanner.ui.authentication.presnter.login.LoginPresenterImpl;
+import com.example.mealplanner.ui.home.HomeActivity;
+import com.example.mealplanner.ui.splash.view.SplashActivity;
 
 public class LoginFragment extends Fragment implements LoginView{
 

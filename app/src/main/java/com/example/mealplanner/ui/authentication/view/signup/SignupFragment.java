@@ -11,9 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.firebase.AuthModel;
-import com.example.mealplanner.data.firebase.AuthModelImpl;
-import com.example.mealplanner.ui.authentication.presnter.login.LoginPresenterImpl;
+import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
+import com.example.mealplanner.data.remotedata.firebaseauth.AuthModel;
+import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
+import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.ui.authentication.presnter.signup.SignupPresenter;
 import com.example.mealplanner.ui.authentication.presnter.signup.SignupPresenterImpl;
 
@@ -24,8 +25,6 @@ public class SignupFragment extends Fragment implements SignupView{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AuthModel model = new AuthModelImpl();
-        presenter = new SignupPresenterImpl(this, model);
     }
 
     @Override
@@ -38,6 +37,8 @@ public class SignupFragment extends Fragment implements SignupView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        AppRepo model = AppRepo.getInstance(new AuthModelImpl(), SharedPerferencesImp.getInstance(view.getContext()));
+        presenter = new SignupPresenterImpl(this, model);
     }
 
     @Override
