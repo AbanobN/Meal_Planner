@@ -83,6 +83,8 @@ public class LoginFragment extends Fragment implements LoginView{
     public void onSignInSuccess() {
         // handel later
         Toast.makeText(view, "Login successfully", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
+        startActivity(intent);
     }
 
     @Override

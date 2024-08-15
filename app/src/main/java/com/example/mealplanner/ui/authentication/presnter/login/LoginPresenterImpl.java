@@ -7,6 +7,8 @@ import com.example.mealplanner.ui.authentication.view.lgoin.LoginView;
 public class LoginPresenterImpl implements LoginPresenter , NetworkCallback {
     private AppRepo model;
     private LoginView view;
+    private String userEmail;
+    private String userPassword;
 
     public LoginPresenterImpl(LoginView view, AppRepo model) {
         this.view = view;
@@ -15,6 +17,7 @@ public class LoginPresenterImpl implements LoginPresenter , NetworkCallback {
 
     @Override
     public void onSuccess() {
+        model.writePrefernces(userEmail,userPassword);
         view.onSignInSuccess();
     }
 
@@ -25,6 +28,8 @@ public class LoginPresenterImpl implements LoginPresenter , NetworkCallback {
 
     @Override
     public void signIn(String email, String password) {
+        userEmail = email;
+        userPassword = password;
         model.signInApp(email, password, this);
     }
 

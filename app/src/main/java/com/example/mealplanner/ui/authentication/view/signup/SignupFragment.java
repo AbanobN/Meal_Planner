@@ -1,6 +1,7 @@
 package com.example.mealplanner.ui.authentication.view.signup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.ui.authentication.presnter.signup.SignupPresenter;
 import com.example.mealplanner.ui.authentication.presnter.signup.SignupPresenterImpl;
+import com.example.mealplanner.ui.home.HomeActivity;
 
 public class SignupFragment extends Fragment implements SignupView{
 
@@ -83,6 +85,8 @@ public class SignupFragment extends Fragment implements SignupView{
     public void onSignUpSuccess() {
         // handel later
         Toast.makeText(view, "SignUp successfully", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
+        startActivity(intent);
     }
 
     @Override

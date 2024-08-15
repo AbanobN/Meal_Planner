@@ -9,6 +9,8 @@ import com.example.mealplanner.ui.authentication.view.signup.SignupView;
 public class SignupPresenterImpl implements SignupPresenter , NetworkCallback {
     private AppRepo model;
     private SignupView view;
+    private String userEmail;
+    private String userPassword;
 
     public SignupPresenterImpl(SignupView view, AppRepo model) {
         this.view = view;
@@ -17,6 +19,7 @@ public class SignupPresenterImpl implements SignupPresenter , NetworkCallback {
 
     @Override
     public void onSuccess() {
+        model.writePrefernces(userEmail,userPassword);
         view.onSignUpSuccess();
     }
 
@@ -32,6 +35,8 @@ public class SignupPresenterImpl implements SignupPresenter , NetworkCallback {
             view.passwordDoNotMatch();
             return;
         }
+        userEmail = email;
+        userPassword = password;
         model.signUpApp(email, password,this);
     }
 
