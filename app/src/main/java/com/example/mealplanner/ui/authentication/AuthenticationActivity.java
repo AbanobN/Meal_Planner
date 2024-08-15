@@ -1,4 +1,4 @@
-package com.example.mealplanner.ui.authentication.view;
+package com.example.mealplanner.ui.authentication;
 
 import android.os.Bundle;
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.ui.authentication.view.AuthenticationActivity;
+import com.example.mealplanner.ui.authentication.AuthenticationActivity;
 import com.example.mealplanner.ui.home.HomeActivity;
 import com.example.mealplanner.ui.splash.presenter.SplashPresenter;
 

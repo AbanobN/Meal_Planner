@@ -1,10 +1,8 @@
-package com.example.mealplanner.ui.authentication.presnter.signup;
+package com.example.mealplanner.ui.authentication.signup.presenter;
 
-import com.example.mealplanner.data.remotedata.firebaseauth.AuthModel;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.NetworkCallback;
-import com.example.mealplanner.data.repo.Repository;
-import com.example.mealplanner.ui.authentication.view.signup.SignupView;
+import com.example.mealplanner.ui.authentication.signup.view.SignupView;
 
 public class SignupPresenterImpl implements SignupPresenter , NetworkCallback {
     private AppRepo model;

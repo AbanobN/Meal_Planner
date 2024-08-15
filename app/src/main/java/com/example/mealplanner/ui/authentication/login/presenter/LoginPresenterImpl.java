@@ -1,8 +1,8 @@
-package com.example.mealplanner.ui.authentication.presnter.login;
+package com.example.mealplanner.ui.authentication.login.presenter;
 
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.NetworkCallback;
-import com.example.mealplanner.ui.authentication.view.lgoin.LoginView;
+import com.example.mealplanner.ui.authentication.login.view.LoginView;
 
 public class LoginPresenterImpl implements LoginPresenter , NetworkCallback {
     private AppRepo model;

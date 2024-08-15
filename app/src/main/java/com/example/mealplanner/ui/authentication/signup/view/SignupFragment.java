@@ -1,4 +1,4 @@
-package com.example.mealplanner.ui.authentication.view.signup;
+package com.example.mealplanner.ui.authentication.signup.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,11 +19,10 @@ import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
-import com.example.mealplanner.data.remotedata.firebaseauth.AuthModel;
 import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.ui.authentication.presnter.signup.SignupPresenter;
-import com.example.mealplanner.ui.authentication.presnter.signup.SignupPresenterImpl;
+import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenter;
+import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenterImpl;
 import com.example.mealplanner.ui.home.HomeActivity;
 
 public class SignupFragment extends Fragment implements SignupView{
