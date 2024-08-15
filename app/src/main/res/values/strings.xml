@@ -10,6 +10,13 @@
     <string name="password">Password</string>
     <string name="passwordplacholder">Enter your Password</string>
     <string name="donothave">Don\'t have an account?</string>
+    <string name="have">Aready have an account?</string>
     <string name="signup"><u>Sign Up</u></string>
+    <string name="lg"><u>Login</u></string>
     <string name="signupwith">Sign Up With</string>
+    <string name="loginwith">Login With</string>
+    <string name="nsignup">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="nameplaceholder">Enter Your Name</string>
+    <string name="repassword">Repassword</string>
 </resources>
