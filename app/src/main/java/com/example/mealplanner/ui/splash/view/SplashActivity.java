@@ -29,23 +29,24 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
 
         presenter = new SplashPresenter(this, this);
         presenter.isAppUser();
+        presenter.start(5L);
 
         TextView mealTextView = findViewById(R.id.meal);
         TextView plannerTextView = findViewById(R.id.Planner);
 
         // Animate "Meal"
         ObjectAnimator mealAnimator = ObjectAnimator.ofFloat(mealTextView, "translationX", -500f, 0f);
-        mealAnimator.setDuration(1000);
+        mealAnimator.setDuration(3000);
         ObjectAnimator mealAlphaAnimator = ObjectAnimator.ofFloat(mealTextView, "alpha", 0f, 1f);
-        mealAlphaAnimator.setDuration(1000);
+        mealAlphaAnimator.setDuration(3000);
 
         // Animate "Planner"
         ObjectAnimator plannerAnimator = ObjectAnimator.ofFloat(plannerTextView, "translationX", 500f, 0f);
-        plannerAnimator.setDuration(1000);
+        plannerAnimator.setDuration(3000);
         ObjectAnimator plannerAlphaAnimator = ObjectAnimator.ofFloat(plannerTextView, "alpha", 0f, 1f);
-        plannerAlphaAnimator.setDuration(1000);
+        plannerAlphaAnimator.setDuration(3000);
 
-        // Play animations the animations
+        // Play animations
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(mealAnimator, mealAlphaAnimator, plannerAnimator, plannerAlphaAnimator);
         animatorSet.start();
@@ -62,6 +63,11 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
         {
             intent = new Intent(SplashActivity.this, AuthenticationActivity.class);
         }
+    }
+
+    @Override
+    public void navigateToNextActivity() {
         startActivity(intent);
+        finish();
     }
 }
