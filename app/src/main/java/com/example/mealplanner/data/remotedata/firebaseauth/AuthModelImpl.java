@@ -1,4 +1,7 @@
-package com.example.mealplanner.data.firebase;
+package com.example.mealplanner.data.remotedata.firebaseauth;
+import android.util.Log;
+
+import com.example.mealplanner.data.repo.NetworkCallback;
 import com.example.mealplanner.data.repo.Repository;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -11,7 +14,7 @@ public class AuthModelImpl implements AuthModel {
     }
 
     @Override
-    public void signIn(String email, String password, Repository.NetworkCallback callback) {
+    public void signIn(String email, String password, NetworkCallback callback) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -23,7 +26,7 @@ public class AuthModelImpl implements AuthModel {
     }
 
     @Override
-    public void signUp(String email, String password, Repository.NetworkCallback callback) {
+    public void signUp(String email, String password,NetworkCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -36,7 +39,6 @@ public class AuthModelImpl implements AuthModel {
 
     @Override
     public void signOut() {
-
         mAuth.signOut();
     }
 }

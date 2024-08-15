@@ -1,4 +1,4 @@
-package com.example.mealplanner.data.sharedpreferences;
+package com.example.mealplanner.data.localdata.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
