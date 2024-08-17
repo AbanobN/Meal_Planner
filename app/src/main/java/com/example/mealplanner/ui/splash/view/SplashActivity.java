@@ -4,13 +4,14 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.ui.authentication.view.AuthenticationActivity;
-import com.example.mealplanner.ui.home.HomeActivity;
+import com.example.mealplanner.ui.authentication.AuthenticationActivity;
+import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;
 import com.example.mealplanner.ui.splash.presenter.SplashPresenter;
 
 public class SplashActivity extends AppCompatActivity implements SplashView{
@@ -57,6 +58,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
     public void isAuthentice(boolean isAuthentice) {
         if(isAuthentice)
         {
+            Log.d("isAuth", "isAuthentice: ");
             intent = new Intent(SplashActivity.this, HomeActivity.class);
         }
         else

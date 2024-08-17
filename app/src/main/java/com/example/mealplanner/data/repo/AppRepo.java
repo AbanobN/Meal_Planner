@@ -36,6 +36,12 @@ public class AppRepo implements Repository{
     }
 
     @Override
+    public void removePrefernces() {
+        shPer.removePreferences();
+    }
+
+
+    @Override
     public void signInApp(String email, String password, NetworkCallback callback) {
         firebaseAuth.signIn(email,password,callback);
     }

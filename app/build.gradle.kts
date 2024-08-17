@@ -47,8 +47,18 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
 
+    implementation (libs.navigation.fragment.ktx)
+    implementation (libs.navigation.ui.ktx)
+
     //RXJava
     implementation (libs.rxjava)
     implementation (libs.rxandroid)
+
+    //Card shape
+    implementation (libs.cardview)
+
+    //Glide For Photos
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
 
 }
