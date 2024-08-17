@@ -3,25 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home">
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home"
         android:name="com.example.mealplanner.ui.home.home.view.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/searchFragment"
+        android:id="@+id/search"
         android:name="com.example.mealplanner.ui.home.search.view.SearchFragment"
-        android:label="fragment_search"
+        android:label="Search"
         tools:layout="@layout/fragment_search" />
     <fragment
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/favorites"
         android:name="com.example.mealplanner.ui.home.favorites.view.FavoritesFragment"
-        android:label="fragment_favorites"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
-        android:id="@+id/planFragment"
+        android:id="@+id/plan"
         android:name="com.example.mealplanner.ui.home.plan.view.PlanFragment"
-        android:label="fragment_plan"
+        android:label="Plan"
         tools:layout="@layout/fragment_plan" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.mealplanner.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>

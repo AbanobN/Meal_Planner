@@ -19,4 +19,8 @@
     <string name="name">Name</string>
     <string name="nameplaceholder">Enter Your Name</string>
     <string name="repassword">Repassword</string>
+    <string name="categorieslist">Categories List</string>
+    <string name="categorymeals">Category Meals</string>
+    <string name="showdetails">Details</string>
+    <string name="showlist">List</string>
 </resources>

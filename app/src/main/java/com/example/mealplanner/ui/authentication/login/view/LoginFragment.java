@@ -23,7 +23,7 @@ import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.ui.authentication.login.presenter.LoginPresenter;
 import com.example.mealplanner.ui.authentication.login.presenter.LoginPresenterImpl;
-import com.example.mealplanner.ui.home.HomeActivity;
+import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;
 
 public class LoginFragment extends Fragment implements LoginView{
 

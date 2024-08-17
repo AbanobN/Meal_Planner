@@ -23,7 +23,7 @@ import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenter;
 import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenterImpl;
-import com.example.mealplanner.ui.home.HomeActivity;
+import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;
 
 public class SignupFragment extends Fragment implements SignupView{
 
