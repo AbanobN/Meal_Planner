@@ -61,4 +61,8 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
 
+    //Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
 }

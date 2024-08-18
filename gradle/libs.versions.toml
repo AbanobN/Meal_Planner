@@ -13,12 +13,14 @@ navigationFragment = "2.5.3"
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.0.0"
 navigationFragmentKtx = "2.6.0"
+retrofit = "2.9.0"
 rxandroid = "3.0.1"
 rxjava = "3.1.6"
 
 [libraries]
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -32,6 +34,7 @@ navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-kt
 navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragment" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 
