@@ -58,7 +58,6 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
     public void isAuthentice(boolean isAuthentice) {
         if(isAuthentice)
         {
-            Log.d("isAuth", "isAuthentice: ");
             intent = new Intent(SplashActivity.this, HomeActivity.class);
         }
         else

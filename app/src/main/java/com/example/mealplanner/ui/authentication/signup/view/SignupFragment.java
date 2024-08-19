@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
+import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenter;
 import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenterImpl;
@@ -51,8 +52,7 @@ public class SignupFragment extends Fragment implements SignupView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppRepo model = AppRepo.getInstance(new AuthModelImpl(), SharedPerferencesImp.getInstance(view.getContext()));
-        presenter = new SignupPresenterImpl(this, model);
+        presenter = new SignupPresenterImpl(getContext(),this);
 
         this.view = view.getContext();
         userEmail = view.findViewById(R.id.semailFeild);
@@ -82,7 +82,6 @@ public class SignupFragment extends Fragment implements SignupView{
 
     @Override
     public void onSignUpSuccess() {
-        // handel later
         Toast.makeText(view, "SignUp successfully", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), HomeActivity.class);
         startActivity(intent);
@@ -90,7 +89,6 @@ public class SignupFragment extends Fragment implements SignupView{
 
     @Override
     public void onSignUpFailure(String error) {
-        // handel later
         Toast.makeText(view, "SignUp Failed " + error, Toast.LENGTH_SHORT).show();
     }
 
