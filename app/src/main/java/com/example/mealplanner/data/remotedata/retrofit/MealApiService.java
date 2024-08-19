@@ -1,7 +1,9 @@
 package com.example.mealplanner.data.remotedata.retrofit;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MealApiService {
@@ -32,4 +34,7 @@ public interface MealApiService {
 
     @GET("filter.php")
     Call<ApiResponse.MealResponse> filterMealsByArea(@Query("a") String area);
+
+    @GET("images/ingredients/{ingredientName}.png")
+    Call<ResponseBody> getIngredientImage(@Path("ingredientName") String ingredientName);
 }

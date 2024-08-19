@@ -1,5 +1,9 @@
 package com.example.mealplanner.data.model;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MealData {
     private String idMeal;
     private String strMeal;
@@ -59,6 +63,27 @@ public class MealData {
         this.idMeal = idMeal;
         this.strMeal = strMeal;
         this.strMealThumb = strMealThumb;
+    }
+
+    public List<Ingredient> getIngredients() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+
+        for (Field field : fields) {
+            if (field.getName().startsWith("strIngredient")) {
+                try {
+                    field.setAccessible(true);
+                    String value = (String) field.get(this);
+                    if (value != null && !value.isEmpty()) {
+                        ingredients.add(new Ingredient(value));
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return ingredients;
     }
 
     // Getters and Setters

@@ -3,6 +3,7 @@ package com.example.mealplanner.ui.splash.presenter;
 import android.content.Context;
 
 import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
+import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.ui.splash.view.SplashView;
@@ -19,7 +20,7 @@ public class SplashPresenter implements SplashPre{
 
     public SplashPresenter(Context context, SplashView view) {
         this._view = view;
-        this.repo = AppRepo.getInstance(new AuthModelImpl(),SharedPerferencesImp.getInstance(context));
+        this.repo = AppRepo.getInstance(new AuthModelImpl(),SharedPerferencesImp.getInstance(context), RetrofitClient.getClient());
     }
 
     public void isAppUser()

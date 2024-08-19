@@ -11,30 +11,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.MealData;
-import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
-import com.example.mealplanner.data.remotedata.retrofit.MealApiService;
-import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
+import com.example.mealplanner.ui.home.home.presenter.HomeFragmentPresenterImp;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class HomeFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener {
+public class HomeFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener , HomeFragmentView {
     TextView type;
     CategoryAdapter categoryAdapter;
     MealAdapter mealAdapter;
+    HomeFragmentPresenterImp presenter;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -46,17 +44,14 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
+        presenter = new HomeFragmentPresenterImp(getContext(),this);
 
         RecyclerView recyclerView = view.findViewById(R.id.cat_rec_view);
         RecyclerView recyclerView2 = view.findViewById(R.id.meal_rec_view);
         type = view.findViewById(R.id.type);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext());
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView2.setLayoutManager(layoutManager2);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
         categoryAdapter = new CategoryAdapter(new ArrayList<>(),this);
         mealAdapter = new MealAdapter(new ArrayList<>());
@@ -64,61 +59,33 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         recyclerView.setAdapter(categoryAdapter);
         recyclerView2.setAdapter(mealAdapter);
 
-        fetchCategories();
-
-        fetchMealsByCategory("Beef");
+        presenter.getCategories();
+        presenter.getMealsByCategories("Beef");
         type.setText("Beef Meals");
     }
 
     @Override
     public void onCategoryClick(CategorieData categorieData) {
         type.setText(categorieData.getStrCategory() + " Meals");
-        fetchMealsByCategory(categorieData.getStrCategory());
-
+        presenter.getMealsByCategories(categorieData.getStrCategory());
     }
 
-    private void fetchCategories() {
-        MealApiService apiService = RetrofitClient.getClient().create(MealApiService.class);
-        apiService.getCategories().enqueue(new Callback<ApiResponse.CategoryResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse.CategoryResponse> call, Response<ApiResponse.CategoryResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<CategorieData> categories = response.body().getCategories();
-                    categoryAdapter.updateCategoryDataList(categories);
-                } else {
-                    Log.e("HomeFragment", "Failed to fetch categories: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse.CategoryResponse> call, Throwable t) {
-                Log.e("HomeFragment", "Error fetching categories", t);
-            }
-        });
+    @Override
+    public void handleCategories(List<CategorieData> categories)
+    {
+        categoryAdapter.updateCategoryDataList(categories);
     }
 
-    private void fetchMealsByCategory(String category) {
-        MealApiService apiService = RetrofitClient.getClient().create(MealApiService.class);
-
-        // Make the API call to get meals by category
-        apiService.filterMealsByCategory(category).enqueue(new Callback<ApiResponse.MealResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse.MealResponse> call, Response<ApiResponse.MealResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<MealData> meals = response.body().getMeals();
-                    // Update the MealAdapter with the fetched meals
-                    mealAdapter.updateMealDataList(meals);
-                } else {
-                    Log.e("HomeFragment", "Failed to fetch meals: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse.MealResponse> call, Throwable t) {
-                Log.e("HomeFragment", "Error fetching meals", t);
-            }
-        });
+    @Override
+    public void handleMealsByCategory(List<MealData> meals)
+    {
+        mealAdapter.updateMealDataList(meals);
     }
 
+    @Override
+    public void handError(Throwable t)
+    {
+        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
 
 }

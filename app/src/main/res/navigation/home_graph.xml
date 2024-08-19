@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_home_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/details" />
     </fragment>
     <fragment
         android:id="@+id/search"
@@ -29,8 +29,12 @@
         android:label="Plan"
         tools:layout="@layout/fragment_plan" />
     <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.example.mealplanner.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        android:id="@+id/details"
+        android:name="com.example.mealplanner.ui.home.details.view.DetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="meaId"
+            app:argType="string" />
+    </fragment>
 </navigation>
