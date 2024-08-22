@@ -26,7 +26,11 @@
         android:id="@+id/favorites"
         android:name="com.example.mealplanner.ui.home.favorites.view.FavoritesFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favorites_to_details"
+            app:destination="@id/details" />
+    </fragment>
     <fragment
         android:id="@+id/plan"
         android:name="com.example.mealplanner.ui.home.plan.view.PlanFragment"
@@ -39,6 +43,9 @@
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="meaId"
+            app:argType="string" />
+        <argument
+            android:name="userEmail"
             app:argType="string" />
     </fragment>
 </navigation>

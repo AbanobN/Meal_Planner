@@ -68,4 +68,11 @@ dependencies {
 
     //Retrofit with RX
     implementation (libs.adapter.rxjava3)
+
+    //Room
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+
+    //Room with RX
+    implementation (libs.room.rxjava3)
 }
