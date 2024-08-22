@@ -4,7 +4,10 @@ import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback
 import com.example.mealplanner.data.remotedata.retrofit.CategoryCallback;
 import com.example.mealplanner.data.remotedata.retrofit.MealCallback;
 import com.example.mealplanner.data.remotedata.retrofit.OneMealCallback;
-import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
+import com.example.mealplanner.data.localdata.database.MealEntity;
+import java.util.List;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Completable;
 
 public interface Repository {
     public boolean readPrefernces();
@@ -19,4 +22,9 @@ public interface Repository {
     public void getMealsByCategory(String category , MealCallback mealCallback);
 
     public void getMealById(String id , OneMealCallback oneMealCallback);
+
+    // Add these methods to the Repository interface
+    Flowable<List<MealEntity>> getAllMeals();
+    Completable insertMeal(MealEntity mealEntity);
+    Completable deleteMeal(MealEntity mealEntity);
 }

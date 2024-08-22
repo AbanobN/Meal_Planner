@@ -68,6 +68,11 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         DetailsFragmentArgs args = DetailsFragmentArgs.fromBundle(getArguments());
         String mealId = args.getMeaId();
 
+        if(args.getUserEmail() != null)
+        {
+            Log.d("TAG1", "onViewCreated: " + args.getUserEmail());
+        }
+
         presenter.getMealById(mealId);
     }
 
@@ -78,7 +83,6 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
 
         mealTitle.setText(mealData.getStrMeal());
 
-        Log.d("Test1", "updateDetails: " + mealData.getStrMeal());
 
         instructions.setText(mealData.getStrInstructions());
 

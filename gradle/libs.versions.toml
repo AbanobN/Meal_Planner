@@ -14,6 +14,7 @@ googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.0.0"
 navigationFragmentKtx = "2.6.0"
 retrofit = "2.9.0"
+roomRuntime = "2.6.1"
 rxandroid = "3.0.1"
 rxjava = "3.1.6"
 
@@ -37,6 +38,9 @@ navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "n
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRuntime" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 

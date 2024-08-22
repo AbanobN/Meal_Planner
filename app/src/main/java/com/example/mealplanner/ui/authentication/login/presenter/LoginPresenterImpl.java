@@ -7,6 +7,7 @@ import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.authentication.login.view.LoginView;
 
 public class LoginPresenterImpl implements LoginPresenter , FirebaseAuthCallback {
@@ -17,7 +18,7 @@ public class LoginPresenterImpl implements LoginPresenter , FirebaseAuthCallback
 
     public LoginPresenterImpl(Context context, LoginView view) {
         this.view = view;
-        this.model =AppRepo.getInstance(new AuthModelImpl(), SharedPerferencesImp.getInstance(context) , RetrofitClient.getClient());;
+        this.model = (AppRepo) RepositoryProvider.provideRepository(context);
     }
 
     @Override

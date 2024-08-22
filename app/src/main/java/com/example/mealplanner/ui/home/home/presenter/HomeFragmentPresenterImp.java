@@ -10,6 +10,7 @@ import com.example.mealplanner.data.remotedata.retrofit.CategoryCallback;
 import com.example.mealplanner.data.remotedata.retrofit.MealCallback;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.home.view.HomeFragment;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class HomeFragmentPresenterImp implements CategoryCallback , MealCallback
 
     public HomeFragmentPresenterImp(Context context, HomeFragment view) {
         this.view = view;
-        this.repo =  AppRepo.getInstance(new AuthModelImpl(), SharedPerferencesImp.getInstance(context), RetrofitClient.getClient());
+        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
     }
 
     @Override

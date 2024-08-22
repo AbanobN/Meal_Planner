@@ -8,6 +8,7 @@ import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.remotedata.retrofit.OneMealCallback;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.details.view.DetailsFragment;
 
 public class DetailsFragmentPresenterImp implements OneMealCallback , DetailsFragmentPresenter{
@@ -16,7 +17,7 @@ public class DetailsFragmentPresenterImp implements OneMealCallback , DetailsFra
 
     public DetailsFragmentPresenterImp(Context context, DetailsFragment view) {
         this.view = view;
-        this.repo = AppRepo.getInstance(new AuthModelImpl(), SharedPerferencesImp.getInstance(context), RetrofitClient.getClient());
+        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
     }
 
     @Override

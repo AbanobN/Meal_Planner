@@ -66,7 +66,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
             Glide.with(itemView.getContext()).load(data.getStrMealThumb()).into(mealImage);
             mealDetailsBtn.setOnClickListener((e) -> {
                 HomeFragmentDirections.ActionHomeToDetailsFragment action =
-                        HomeFragmentDirections.actionHomeToDetailsFragment(data.getIdMeal());
+                        HomeFragmentDirections.actionHomeToDetailsFragment(data.getIdMeal(),"");
                 Navigation.findNavController(itemView).navigate(action);
             });
         }

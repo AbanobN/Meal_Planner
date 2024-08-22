@@ -1,5 +1,7 @@
 package com.example.mealplanner.data.repo;
 
+import com.example.mealplanner.data.localdata.database.MealEntity;
+import com.example.mealplanner.data.localdata.database.MealRepository;
 import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
@@ -7,24 +9,30 @@ import com.example.mealplanner.data.remotedata.retrofit.CategoryCallback;
 import com.example.mealplanner.data.remotedata.retrofit.MealCallback;
 import com.example.mealplanner.data.remotedata.retrofit.OneMealCallback;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 
 public class AppRepo implements Repository{
     private static AppRepo instance = null;
     private AuthModelImpl firebaseAuth;
     private SharedPerferencesImp shPer;
     private RetrofitClient retrofit;
+    private MealRepository mealRepository;
 
-    private AppRepo(AuthModelImpl firebaseAuth, SharedPerferencesImp shPer , RetrofitClient retrofit) {
+    private AppRepo(AuthModelImpl firebaseAuth, SharedPerferencesImp shPer, RetrofitClient retrofit, MealRepository mealRepository) {
         this.firebaseAuth = firebaseAuth;
         this.shPer = shPer;
         this.retrofit = retrofit;
+        this.mealRepository = mealRepository;
     }
 
-    public static AppRepo getInstance(AuthModelImpl firebaseAuth, SharedPerferencesImp shPer, RetrofitClient retrofit)
+    public static AppRepo getInstance(AuthModelImpl firebaseAuth, SharedPerferencesImp shPer, RetrofitClient retrofit, MealRepository mealRepository)
     {
         if(instance == null)
         {
-            instance = new AppRepo(firebaseAuth,shPer , retrofit);
+            instance = new AppRepo(firebaseAuth,shPer , retrofit, mealRepository);
         }
         return instance;
     }
@@ -77,15 +85,21 @@ public class AppRepo implements Repository{
         retrofit.fetchMealById(id,oneMealCallback);
     }
 
-//    public void getAllCountries(AreaCallback areaCallback)
-//    {
-//        retrofit.fetchAreaList(areaCallback);
-//    }
-//
-//    public void getAllIngredients(IngredientCallback ingredientCallback)
-//    {
-//        retrofit.fetchAllIngredients(ingredientCallback);
-//    }
+    @Override
+    public Flowable<List<MealEntity>> getAllMeals() {
+        return mealRepository.getAllMeals();
+    }
+
+    @Override
+    public Completable insertMeal(MealEntity mealEntity) {
+        return mealRepository.insertMeal(mealEntity);
+    }
+
+    @Override
+    public Completable deleteMeal(MealEntity mealEntity) {
+        return mealRepository.deleteMeal(mealEntity);
+    }
+
 
 
 }

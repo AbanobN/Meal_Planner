@@ -198,7 +198,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     @Override
     public void onMealClick(MealData mealData) {
         String data = mealData.getIdMeal();
-        SearchFragmentDirections.ActionSearchToDetails action = SearchFragmentDirections.actionSearchToDetails(data);
+        SearchFragmentDirections.ActionSearchToDetails action = SearchFragmentDirections.actionSearchToDetails(data,"");
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(action);
     }
