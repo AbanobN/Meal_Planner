@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
+import com.example.mealplanner.data.model.Ingredient;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
 
@@ -16,9 +18,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class RetrofitClient {
-    private static Retrofit retrofit = null;
+    public static Retrofit retrofit = null;
     private static RetrofitClient client = null;
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
 
@@ -26,6 +31,7 @@ public class RetrofitClient {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
     }
 

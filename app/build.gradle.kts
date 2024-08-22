@@ -66,4 +66,6 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
+    //Retrofit with RX
+    implementation (libs.adapter.rxjava3)
 }

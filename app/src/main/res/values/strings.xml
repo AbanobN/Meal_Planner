@@ -23,4 +23,8 @@
     <string name="categorymeals">Category Meals</string>
     <string name="showdetails">Details</string>
     <string name="showlist">List</string>
+    <string name="meals">Meals</string>
+    <string name="categories">Category</string>
+    <string name="area">Area</string>
+    <string name="ingredient">Ingredients</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.mealplanner.data.remotedata.retrofit;
 
+import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
+import com.example.mealplanner.data.model.Ingredient;
 import com.example.mealplanner.data.model.MealData;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
@@ -14,6 +16,7 @@ public class ApiResponse {
         public List<MealData> getMeals() {
             return meals;
         }
+
         public void setMeals(List<MealData> meals) {
             this.meals = meals;
         }
@@ -26,6 +29,7 @@ public class ApiResponse {
         public List<CategorieData> getCategories() {
             return categories;
         }
+
         public void setCategories(List<CategorieData> categories) {
             this.categories = categories;
         }
@@ -38,8 +42,31 @@ public class ApiResponse {
         public List<MealData> getMeals() {
             return meals;
         }
+
         public void setMeals(List<MealData> meals) {
             this.meals = meals;
+        }
+    }
+
+    public class IngredientResponse {
+        @SerializedName("meals")
+        private List<Ingredient> ingredients;
+
+        public List<Ingredient> getIngredients() {
+            return ingredients;
+        }
+    }
+
+    public static class AreaResponse {
+        @SerializedName("meals")
+        private List<AreaData> areas;
+
+        public List<AreaData> getAreas() {
+            return areas;
+        }
+
+        public void setAreas(List<AreaData> areas) {
+            this.areas = areas;
         }
     }
 }
