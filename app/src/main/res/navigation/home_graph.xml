@@ -17,7 +17,11 @@
         android:id="@+id/search"
         android:name="com.example.mealplanner.ui.home.search.view.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_search_to_details"
+            app:destination="@id/details" />
+    </fragment>
     <fragment
         android:id="@+id/favorites"
         android:name="com.example.mealplanner.ui.home.favorites.view.FavoritesFragment"

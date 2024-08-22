@@ -18,6 +18,7 @@ rxandroid = "3.0.1"
 rxjava = "3.1.6"
 
 [libraries]
+adapter-rxjava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "retrofit" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }

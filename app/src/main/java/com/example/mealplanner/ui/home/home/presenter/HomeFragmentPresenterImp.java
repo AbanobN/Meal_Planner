@@ -33,7 +33,6 @@ public class HomeFragmentPresenterImp implements CategoryCallback , MealCallback
     @Override
     public void getMealsByCategories(String cat)
     {
-
         repo.getMealsByCategory(cat,this);
     }
 

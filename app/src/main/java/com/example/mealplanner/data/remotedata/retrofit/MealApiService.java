@@ -1,18 +1,15 @@
 package com.example.mealplanner.data.remotedata.retrofit;
 
-import okhttp3.ResponseBody;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MealApiService {
 
+    //Callback  Queries
     @GET("random.php")
     Call<ApiResponse.MealResponse> getRandomMeal();
-
-    @GET("search.php")
-    Call<ApiResponse.MealResponse> searchMealByName(@Query("s") String mealName);
 
     @GET("lookup.php")
     Call<ApiResponse.MealResponse> getMealById(@Query("i") String mealId);
@@ -21,20 +18,31 @@ public interface MealApiService {
     Call<ApiResponse.CategoryResponse> getCategories();
 
     @GET("list.php")
-    Call<ApiResponse.ListResponse> getCategoryList(@Query("c") String listType);
-
-    @GET("list.php")
-    Call<ApiResponse.ListResponse> getAreaList(@Query("a") String listType);
-
-    @GET("list.php")
-    Call<ApiResponse.ListResponse> getIngredientList(@Query("i") String listType);
+    Call<ApiResponse.AreaResponse> getAreaList(@Query("a") String listType);
 
     @GET("filter.php")
     Call<ApiResponse.MealResponse> filterMealsByCategory(@Query("c") String category);
 
-    @GET("filter.php")
-    Call<ApiResponse.MealResponse> filterMealsByArea(@Query("a") String area);
 
-    @GET("images/ingredients/{ingredientName}.png")
-    Call<ResponseBody> getIngredientImage(@Path("ingredientName") String ingredientName);
+    // RX Queries
+    @GET("search.php")
+    Single<ApiResponse.MealResponse> searchMealByName(@Query("s") String mealName);
+
+    @GET("categories.php")
+    Single<ApiResponse.CategoryResponse> getCategoriesRX();
+
+    @GET("filter.php")
+    Single<ApiResponse.MealResponse> filterMealsByIngredient(@Query("i") String ingredient);
+
+    @GET("filter.php")
+    Single<ApiResponse.MealResponse> filterMealsByCategoryRx(@Query("c") String category);
+
+    @GET("filter.php")
+    Single<ApiResponse.MealResponse> filterMealsByArea(@Query("a") String area);
+
+    @GET("list.php?a=list")
+    Single<ApiResponse.AreaResponse> getAreasList();
+
+    @GET("list.php?i=list")
+    Single<ApiResponse.IngredientResponse> getAllIngredients();
 }

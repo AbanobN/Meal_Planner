@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <!-- Background color -->
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+
+        <item name="android:textColor">@android:color/white</item>
+
+        <item name="chipCornerRadius">16dp</item>
+
+        <item name="chipStrokeColor">@android:color/white</item>
+        <item name="chipStrokeWidth">2dp</item>
+
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="chipStartPadding">16dp</item>
+        <item name="chipEndPadding">16dp</item>
+
+        <!-- Hide the close icon if not needed -->
+        <item name="closeIconEnabled">false</item>
+    </style>
+</resources>

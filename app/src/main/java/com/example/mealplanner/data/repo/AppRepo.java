@@ -77,5 +77,15 @@ public class AppRepo implements Repository{
         retrofit.fetchMealById(id,oneMealCallback);
     }
 
+//    public void getAllCountries(AreaCallback areaCallback)
+//    {
+//        retrofit.fetchAreaList(areaCallback);
+//    }
+//
+//    public void getAllIngredients(IngredientCallback ingredientCallback)
+//    {
+//        retrofit.fetchAllIngredients(ingredientCallback);
+//    }
+
 
 }
