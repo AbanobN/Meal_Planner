@@ -12,15 +12,65 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/rubik_medium"
+            android:paddingTop="15dp"
+            android:text="@string/choose"
+            android:textAlignment="center"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Spinner
+                android:id="@+id/spinner_weekdays"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:prompt="@string/select_weekday"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/daymeal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="plan"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/rubik_medium"
+            android:padding="10dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/light_orange"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_view"
+            android:layout_width="381dp"
+            android:layout_height="551dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteY="276dp" />
+            tools:listitem="@layout/favorite_card"
+            app:layout_constraintTop_toBottomOf="@+id/daymeal" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
