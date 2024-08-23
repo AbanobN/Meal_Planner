@@ -1,7 +1,10 @@
 package com.example.mealplanner.data.repo;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.mealplanner.data.localdata.database.MealEntity;
 import com.example.mealplanner.data.localdata.database.MealRepository;
+import com.example.mealplanner.data.localdata.database.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
@@ -10,7 +13,7 @@ import com.example.mealplanner.data.remotedata.retrofit.MealCallback;
 import com.example.mealplanner.data.remotedata.retrofit.OneMealCallback;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import java.util.List;
-
+import com.example.mealplanner.data.localdata.database.PlanDAO;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
@@ -100,6 +103,20 @@ public class AppRepo implements Repository{
         return mealRepository.deleteMeal(mealEntity);
     }
 
+    @Override
+    public LiveData<List<PlanEntity>> getAllPlansByDay(String weekDay) {
+        return mealRepository.getAllPlans(weekDay);
+    }
+
+    @Override
+    public Completable insertPlan(PlanEntity planEntity) {
+        return mealRepository.insertPlan(planEntity);
+    }
+
+    @Override
+    public Completable deletePlan(PlanEntity planEntity) {
+        return mealRepository.deletePlan(planEntity);
+    }
 
 
 }

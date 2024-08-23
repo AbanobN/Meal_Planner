@@ -1,5 +1,8 @@
 package com.example.mealplanner.data.repo;
 
+import androidx.lifecycle.LiveData;
+
+import com.example.mealplanner.data.localdata.database.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
 import com.example.mealplanner.data.remotedata.retrofit.CategoryCallback;
 import com.example.mealplanner.data.remotedata.retrofit.MealCallback;
@@ -23,8 +26,12 @@ public interface Repository {
 
     public void getMealById(String id , OneMealCallback oneMealCallback);
 
-    // Add these methods to the Repository interface
+
     Flowable<List<MealEntity>> getAllMeals();
     Completable insertMeal(MealEntity mealEntity);
     Completable deleteMeal(MealEntity mealEntity);
+
+    LiveData<List<PlanEntity>> getAllPlansByDay(String weekDay);
+    Completable insertPlan(PlanEntity planEntity);
+    Completable deletePlan(PlanEntity planEntity);
 }
