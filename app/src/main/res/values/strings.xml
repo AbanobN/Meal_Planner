@@ -29,4 +29,18 @@
     <string name="ingredient">Ingredients</string>
     <string name="cancel_button_desc">Cancel</string>
     <string name="addtoplan">Add To Plan</string>
+    <string name="choose">Choose Day</string>
+
+    <string name="select_weekday">Select a weekday</string>
+    <string-array name="weekdays_array">
+        <item>Choose a day</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
 </resources>
