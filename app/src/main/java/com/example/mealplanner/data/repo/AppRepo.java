@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mealplanner.data.localdata.database.DataBaseManger;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesManger;
+import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
+import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.model.PlanEntity;
@@ -39,6 +41,7 @@ public class AppRepo implements Repository{
         return instance;
     }
 
+    //Prefrences
     public boolean readPreferences() {
         return shPer.readFromPreferences();
     }
@@ -51,6 +54,7 @@ public class AppRepo implements Repository{
         shPer.removePreferences();
     }
 
+    // firebase Auth
     public void signInApp(String email, String password, FirebaseAuthCallback callback) {
         firebaseAuth.signIn(email, password, callback);
     }
@@ -63,21 +67,50 @@ public class AppRepo implements Repository{
         firebaseAuth.signOut();
     }
 
+    //Retrofit
     public Single<List<CategorieData>> getAllCategories() {
         return retrofitManager.fetchCategories();
+    }
+    public Single<List<AreaData>> getAreasList() {
+        return retrofitManager.fetchAreasList();
+    }
+
+    public Single<List<IngredientData>> getAllIngredients() {
+        return retrofitManager.fetchAllIngredients();
     }
 
     public Single<List<MealData>> getMealsByCategory(String category) {
         return retrofitManager.fetchMealsByCategory(category);
     }
 
+    public Single<List<MealData>> getMealsByArea(String area) {
+        return retrofitManager.fetchMealsByArea(area);
+    }
+
+    public Single<List<MealData>> getMealsByIngredient(String ingredient) {
+        return retrofitManager.fetchMealsByIngredient(ingredient);
+    }
+
+    public Single<MealData> getRandomMeal() {
+        return retrofitManager.fetchRandomMeal();
+    }
+
     public Single<MealData> getMealById(String id) {
+
         return retrofitManager.fetchMealById(id);
     }
 
+    public Single<List<MealData>> searchMealByName(String mealName) {
+        return retrofitManager.searchMealByName(mealName);
+    }
+
+
+    //Database
+    //FavoritesTable
     public Flowable<List<MealEntity>> getAllMeals() {
         return dataBaseManger.getAllMeals();
     }
+
 
     public Completable insertMeal(MealEntity mealEntity) {
         return dataBaseManger.insertMeal(mealEntity);
@@ -87,8 +120,9 @@ public class AppRepo implements Repository{
         return dataBaseManger.deleteMeal(mealEntity);
     }
 
-    public LiveData<List<PlanEntity>> getAllPlansByDay(String weekDay) {
-        return dataBaseManger.getAllPlans(weekDay);
+    // PlanTable
+    public LiveData<List<PlanEntity>> getMealsForDay(String weekDay) {
+        return dataBaseManger.getMealsForDay(weekDay);
     }
 
     public Completable insertPlan(PlanEntity planEntity) {

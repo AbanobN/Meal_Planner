@@ -14,9 +14,11 @@ import java.util.List;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.MealData;
@@ -27,6 +29,8 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     CategoryAdapter categoryAdapter;
     MealAdapter mealAdapter;
     HomeFragmentPresenterImp presenter;
+    TextView randomMealText;
+    ImageView randomMealImg;
 
 
     @Override
@@ -45,13 +49,16 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         presenter = new HomeFragmentPresenterImp(getContext(),this);
+        presenter.getRandomMeal();
 
         RecyclerView recyclerView = view.findViewById(R.id.cat_rec_view);
         RecyclerView recyclerView2 = view.findViewById(R.id.meal_rec_view);
         type = view.findViewById(R.id.type);
+        randomMealText = view.findViewById(R.id.mealCard_title);
+        randomMealImg = view.findViewById(R.id.mealCard_img);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         categoryAdapter = new CategoryAdapter(new ArrayList<>(),this);
         mealAdapter = new MealAdapter(new ArrayList<>());
@@ -86,6 +93,12 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     public void handError(Throwable t)
     {
         Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void handleRandomCard(MealData mealData)
+    {
+        randomMealText.setText(mealData.getStrMeal());
+        Glide.with(getContext()).load(mealData.getStrMealThumb()).into(randomMealImg);
     }
 
 }

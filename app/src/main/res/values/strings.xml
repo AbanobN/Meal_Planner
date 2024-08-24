@@ -32,6 +32,7 @@
     <string name="choose">Choose Day</string>
 
     <string name="select_weekday">Select a weekday</string>
+    <string name="bestsell">Best Sell</string>
     <string-array name="weekdays_array">
         <item>Choose a day</item>
         <item>Sunday</item>

@@ -4,11 +4,9 @@ import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
-
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -47,6 +45,16 @@ public class RetrofitManager {
                 .onErrorResumeNext(throwable -> Single.error(throwable));
     }
 
+
+    // List of Areas
+    public Single<List<AreaData>> fetchMealsByAreas(String Area) {
+        return apiService.getAreaList(Area)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(response -> response.getAreas())
+                .onErrorResumeNext(throwable -> Single.error(throwable));
+    }
+
     // Meals By Category
     public Single<List<MealData>> fetchMealsByCategory(String category) {
         return apiService.filterMealsByCategory(category)
@@ -74,14 +82,6 @@ public class RetrofitManager {
                 .onErrorResumeNext(throwable -> Single.error(throwable));
     }
 
-    // List of Areas
-    public Single<List<AreaData>> fetchAreasList(String listType) {
-        return apiService.getAreaList(listType)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getAreas())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
 
     // Random Meal
     public Single<MealData> fetchRandomMeal() {

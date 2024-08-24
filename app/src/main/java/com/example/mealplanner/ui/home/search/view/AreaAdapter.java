@@ -8,11 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.AreaData;
-import com.example.mealplanner.data.model.CategorieData;
 
 import java.util.List;
 
@@ -20,6 +17,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
 
     List<AreaData> areas;
     OnAreaClickListener listener;
+
     public AreaAdapter(List<AreaData>areas , OnAreaClickListener listener) {
         this.areas = areas;
         this.listener = listener;
@@ -44,7 +42,6 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.areaName.setText(areas.get(position).getAreaName());
-
         AreaData data = areas.get(position);
 
         holder.bind(data, listener);
@@ -64,11 +61,20 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
             super(itemView);
             areaName = itemView.findViewById(R.id.search_card_title);
             areaImage = itemView.findViewById(R.id.search_card_img);
+
         }
+
 
         public void bind(AreaData areaData , OnAreaClickListener listener)
         {
             itemView.setOnClickListener(v -> listener.onAreaClick(areaData));
+
+            String imageName = areaData.getAreaName().toLowerCase();
+            int imageResId = itemView.getContext().getResources().getIdentifier(imageName, "drawable", itemView.getContext().getPackageName());
+            if (imageResId != 0)
+            {
+                areaImage.setImageResource(imageResId);
+            }
         }
     }
 

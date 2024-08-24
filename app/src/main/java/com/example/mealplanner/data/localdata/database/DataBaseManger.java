@@ -36,9 +36,6 @@ public class DataBaseManger {
         return Completable.fromAction(() -> mealDAO.delete(mealEntity));
     }
 
-    public LiveData<List<PlanEntity>> getAllPlans(String weekDay) {
-        return planDAO.getMealsForDay(weekDay);
-    }
 
     public Completable insertPlan(PlanEntity planEntity) {
         return Completable.fromAction(() -> planDAO.insertPlan(planEntity));

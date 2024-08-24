@@ -34,7 +34,6 @@ public class SplashPresenter implements SplashPre{
 
     public void start(Long time) {
         Observable<Long> doAction = Observable.timer(time, TimeUnit.SECONDS);
-
         doAction.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((i) -> {
             _view.navigateToNextActivity();
         });

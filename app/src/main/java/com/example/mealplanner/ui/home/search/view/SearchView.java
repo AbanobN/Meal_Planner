@@ -14,4 +14,5 @@ public interface SearchView {
     void updateCategoryList(List<CategorieData> categories);
     void updateCountryList(List<AreaData> areas);
     void updateIngredientsList(List<IngredientData> ingredientData);
+    public void handleError(Throwable t);
 }

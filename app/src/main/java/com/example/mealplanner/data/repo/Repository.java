@@ -37,7 +37,7 @@ public interface Repository {
 
     public Completable deleteMeal(MealEntity mealEntity);
 
-    public LiveData<List<PlanEntity>> getAllPlansByDay(String weekDay);
+    public LiveData<List<PlanEntity>> getMealsForDay(String weekDay);
 
     public Completable insertPlan(PlanEntity planEntity);
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.AreaData;
@@ -39,7 +40,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     private ChipGroup chipGroup;
     private RecyclerView recyclerView;
     private AutoCompleteTextView searchBar;
-    private SearchPresenter presenter;
+    private SearchPresenterImp presenter;
 
     private CategoryAdapter categoryAdapter;
     private IngredientAdapter ingredientAdapter;
@@ -104,7 +105,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
                         String filterBy = chip.getText().toString();
                         switch (filterBy) {
                             case "Category":
-                                presenter.getCategories();
+                                presenter.getAllCategories();
                                 break;
                             case "Area":
                                 presenter.getAllCountries();
@@ -200,4 +201,10 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(action);
     }
+
+    public void handleError(Throwable t)
+    {
+        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
 }

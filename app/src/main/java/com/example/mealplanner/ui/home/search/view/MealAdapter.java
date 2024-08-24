@@ -3,20 +3,15 @@ package com.example.mealplanner.ui.home.search.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.MealData;
-import com.example.mealplanner.ui.home.home.view.HomeFragmentDirections;
-
 import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
@@ -73,3 +68,4 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         void onMealClick(MealData mealData );
     }
 }
+
