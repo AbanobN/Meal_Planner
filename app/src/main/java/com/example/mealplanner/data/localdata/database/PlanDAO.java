@@ -7,9 +7,9 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import java.util.List;
+import com.example.mealplanner.data.model.PlanEntity;
 
-import io.reactivex.rxjava3.core.Flowable;
+import java.util.List;
 
 @Dao
 public interface PlanDAO {
@@ -21,5 +21,11 @@ public interface PlanDAO {
 
     @Delete
     void deletePlan(PlanEntity plan);
+
+    @Query("SELECT * FROM PlanMeals WHERE userEmail = :userEmail")
+    List<PlanEntity> getPlansByUserEmail(String userEmail);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertPlans(List<PlanEntity> planEntities);
 
 }

@@ -154,7 +154,7 @@ public class SearchPresenterImp implements SearchPresenter {
 
     @Override
     public void onCategoryClick(String category) {
-        apiService.filterMealsByCategoryRx(category)
+        apiService.filterMealsByCategory(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<ApiResponse.MealResponse>() {

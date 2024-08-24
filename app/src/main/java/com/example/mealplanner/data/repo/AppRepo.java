@@ -2,121 +2,104 @@ package com.example.mealplanner.data.repo;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.mealplanner.data.localdata.database.MealEntity;
-import com.example.mealplanner.data.localdata.database.MealRepository;
-import com.example.mealplanner.data.localdata.database.PlanEntity;
-import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
-import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
+import com.example.mealplanner.data.localdata.database.DataBaseManger;
+import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesManger;
+import com.example.mealplanner.data.model.CategorieData;
+import com.example.mealplanner.data.model.MealData;
+import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.model.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
-import com.example.mealplanner.data.remotedata.retrofit.CategoryCallback;
-import com.example.mealplanner.data.remotedata.retrofit.MealCallback;
-import com.example.mealplanner.data.remotedata.retrofit.OneMealCallback;
-import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
+import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseManger;
+import com.example.mealplanner.data.remotedata.retrofit.RetrofitManager;
+
 import java.util.List;
-import com.example.mealplanner.data.localdata.database.PlanDAO;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public class AppRepo implements Repository{
     private static AppRepo instance = null;
-    private AuthModelImpl firebaseAuth;
-    private SharedPerferencesImp shPer;
-    private RetrofitClient retrofit;
-    private MealRepository mealRepository;
+    private FirebaseManger firebaseAuth;
+    private SharedPerferencesManger shPer;
+    private RetrofitManager retrofitManager;
+    private DataBaseManger dataBaseManger;
 
-    private AppRepo(AuthModelImpl firebaseAuth, SharedPerferencesImp shPer, RetrofitClient retrofit, MealRepository mealRepository) {
+    private AppRepo(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManager retrofitManager, DataBaseManger dataBaseManger) {
         this.firebaseAuth = firebaseAuth;
         this.shPer = shPer;
-        this.retrofit = retrofit;
-        this.mealRepository = mealRepository;
+        this.retrofitManager = retrofitManager;
+        this.dataBaseManger = dataBaseManger;
     }
 
-    public static AppRepo getInstance(AuthModelImpl firebaseAuth, SharedPerferencesImp shPer, RetrofitClient retrofit, MealRepository mealRepository)
-    {
-        if(instance == null)
-        {
-            instance = new AppRepo(firebaseAuth,shPer , retrofit, mealRepository);
+    public static AppRepo getInstance(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManager retrofitManager, DataBaseManger dataBaseManger) {
+        if (instance == null) {
+            instance = new AppRepo(firebaseAuth, shPer, retrofitManager, dataBaseManger);
         }
         return instance;
     }
 
-    @Override
-    public boolean readPrefernces() {
-
+    public boolean readPreferences() {
         return shPer.readFromPreferences();
     }
 
-    @Override
-    public void writePrefernces(String email, String password) {
-        shPer.addToPreferences(email,password);
+    public void writePreferences(String email, String password) {
+        shPer.addToPreferences(email, password);
     }
 
-    @Override
-    public void removePrefernces() {
+    public void removePreferences() {
         shPer.removePreferences();
     }
 
-
-    @Override
     public void signInApp(String email, String password, FirebaseAuthCallback callback) {
-        firebaseAuth.signIn(email,password,callback);
+        firebaseAuth.signIn(email, password, callback);
     }
 
-    @Override
     public void signUpApp(String email, String password, FirebaseAuthCallback callback) {
-
-        firebaseAuth.signUp(email,password,callback);
+        firebaseAuth.signUp(email, password, callback);
     }
 
-    @Override
     public void signOutApp() {
         firebaseAuth.signOut();
     }
 
-    @Override
-    public void getAllCategories(CategoryCallback categoryCallback) {
-        retrofit.fetchCategories(categoryCallback);
+    public Single<List<CategorieData>> getAllCategories() {
+        return retrofitManager.fetchCategories();
     }
 
-    @Override
-    public void getMealsByCategory(String category, MealCallback mealCallback) {
-        retrofit.fetchMealsByCategory(category,mealCallback);
+    public Single<List<MealData>> getMealsByCategory(String category) {
+        return retrofitManager.fetchMealsByCategory(category);
     }
 
-    @Override
-    public void getMealById(String id, OneMealCallback oneMealCallback) {
-        retrofit.fetchMealById(id,oneMealCallback);
+    public Single<MealData> getMealById(String id) {
+        return retrofitManager.fetchMealById(id);
     }
 
-    @Override
     public Flowable<List<MealEntity>> getAllMeals() {
-        return mealRepository.getAllMeals();
+        return dataBaseManger.getAllMeals();
     }
 
-    @Override
     public Completable insertMeal(MealEntity mealEntity) {
-        return mealRepository.insertMeal(mealEntity);
+        return dataBaseManger.insertMeal(mealEntity);
     }
 
-    @Override
     public Completable deleteMeal(MealEntity mealEntity) {
-        return mealRepository.deleteMeal(mealEntity);
+        return dataBaseManger.deleteMeal(mealEntity);
     }
 
-    @Override
     public LiveData<List<PlanEntity>> getAllPlansByDay(String weekDay) {
-        return mealRepository.getAllPlans(weekDay);
+        return dataBaseManger.getAllPlans(weekDay);
     }
 
-    @Override
     public Completable insertPlan(PlanEntity planEntity) {
-        return mealRepository.insertPlan(planEntity);
+        return dataBaseManger.insertPlan(planEntity);
     }
 
-    @Override
     public Completable deletePlan(PlanEntity planEntity) {
-        return mealRepository.deletePlan(planEntity);
+        return dataBaseManger.deletePlan(planEntity);
     }
 
-
+    public Completable insertAllPlans(List<PlanEntity> planEntities) {
+        return dataBaseManger.insertAllPlans(planEntities);
+    }
 }

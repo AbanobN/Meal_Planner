@@ -3,7 +3,7 @@ package com.example.mealplanner.ui.home.favorites.presenter;
 import android.content.Context;
 
 import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.data.localdata.database.MealEntity;
+import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.favorites.view.FavoritesView;
 

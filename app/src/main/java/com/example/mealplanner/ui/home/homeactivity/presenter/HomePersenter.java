@@ -1,11 +1,7 @@
 package com.example.mealplanner.ui.home.homeactivity.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
-import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
-import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;
@@ -22,7 +18,7 @@ public class HomePersenter implements HomePer{
 
     @Override
     public void logoutUser() {
-        repo.removePrefernces();
+        repo.removePreferences();
         repo.signOutApp();
     }
 }

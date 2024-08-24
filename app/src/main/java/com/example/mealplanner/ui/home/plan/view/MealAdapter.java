@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.localdata.database.MealEntity;
-import com.example.mealplanner.data.localdata.database.PlanEntity;
+import com.example.mealplanner.data.model.PlanEntity;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     @NonNull
     @Override
     public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_card, parent, false);
         return new MealViewHolder(view);
     }
 
@@ -58,8 +57,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
-            mealName = itemView.findViewById(R.id.fav_title);
-            mealImage = itemView.findViewById(R.id.fav_img);
+            mealName = itemView.findViewById(R.id.plan_title);
+            mealImage = itemView.findViewById(R.id.plan_img);
             cancelButton = itemView.findViewById(R.id.cancel_btn);
             addToFavBtn = itemView.findViewById(R.id.addToFavoritesBtn);
         }
@@ -69,8 +68,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
             Glide.with(itemView.getContext()).load(data.getMealUrlImg()).into(mealImage);
             itemView.setOnClickListener(v -> listener.onMealClick(data));
             cancelButton.setOnClickListener(v -> {
-                // Implement the cancel button action
-                listener.onMealCancel(data); // Ensure this method exists in OnMealClickListener
+                listener.onMealCancel(data);
             });
         }
     }

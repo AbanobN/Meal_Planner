@@ -2,8 +2,6 @@ package com.example.mealplanner.ui.home.homeactivity.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -13,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.remotedata.firebasedatabase.SyncService;
 import com.example.mealplanner.ui.authentication.AuthenticationActivity;
 import com.example.mealplanner.ui.home.homeactivity.presenter.HomePersenter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,10 +20,25 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
     private HomePersenter homePersenter;
 
+    private SyncService syncService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // Test sync
+//        FirebaseDatabaseService firebaseDatabaseService = new FirebaseDatabaseService();
+//        MealRepository mealRepository = new MealRepository(this);
+//
+//        // Initialize SyncService with the required dependencies
+//        syncService = new SyncService(firebaseDatabaseService, mealRepository);
+//
+//        // Example user email
+//        String userEmail = "user1@example.com";
+//
+//        // Call syncData to synchronize data
+//        syncService.syncData(userEmail);
 
         homePersenter = new HomePersenter(this,this);
 

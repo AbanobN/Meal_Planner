@@ -19,7 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.localdata.database.MealEntity;
+import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.ui.home.favorites.presenter.FavoritesPresenter;
 import com.example.mealplanner.ui.home.favorites.presenter.FavoritesPresenterImpl;
 

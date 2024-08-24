@@ -18,10 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
-import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
-import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.ui.authentication.login.presenter.LoginPresenter;
 import com.example.mealplanner.ui.authentication.login.presenter.LoginPresenterImpl;
 import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;

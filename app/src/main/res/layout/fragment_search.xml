@@ -60,11 +60,11 @@
                 android:text="@string/area" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/ingredient"
+                android:id="@+id/ingredientData"
                 style="@style/CustomChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ingredient" />
+                android:text="@string/ingredientData" />
 
         </com.google.android.material.chip.ChipGroup>
 

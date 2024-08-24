@@ -26,7 +26,7 @@
     <string name="meals">Meals</string>
     <string name="categories">Category</string>
     <string name="area">Area</string>
-    <string name="ingredient">Ingredients</string>
+    <string name="ingredientData">Ingredients</string>
     <string name="cancel_button_desc">Cancel</string>
     <string name="addtoplan">Add To Plan</string>
     <string name="choose">Choose Day</string>

@@ -11,21 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.model.Ingredient;
+import com.example.mealplanner.data.model.IngredientData;
 
 import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
 
-    private List<Ingredient> ingredients;
+    private List<IngredientData> ingredientData;
 
-    public IngredientAdapter(List<Ingredient> ingredients) {
+    public IngredientAdapter(List<IngredientData> ingredientData) {
 
-        this.ingredients = ingredients;
+        this.ingredientData = ingredientData;
     }
 
-    public void updateIngredientDataList(List<Ingredient> newIngredientDataList) {
-        this.ingredients = newIngredientDataList;
+    public void updateIngredientDataList(List<IngredientData> newIngredientDataDataList) {
+        this.ingredientData = newIngredientDataDataList;
         notifyDataSetChanged();
     }
 
@@ -38,17 +38,17 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
-        Ingredient ingredient = ingredients.get(position);
-        holder.ingredientName.setText(ingredient.getName());
+        IngredientData ingredientData = this.ingredientData.get(position);
+        holder.ingredientName.setText(ingredientData.getName());
         // Load image using Glide
         Glide.with(holder.itemView.getContext())
-                .load("https://www.themealdb.com/images/ingredients/" + ingredient.getName() + "-Small.png")
+                .load("https://www.themealdb.com/images/ingredients/" + ingredientData.getName() + "-Small.png")
                 .into(holder.ingredientImage);
     }
 
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return ingredientData.size();
     }
 
     static class IngredientViewHolder extends RecyclerView.ViewHolder {

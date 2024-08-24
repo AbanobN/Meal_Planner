@@ -1,6 +1,6 @@
 package com.example.mealplanner.ui.home.favorites.view;
 
-import com.example.mealplanner.data.localdata.database.MealEntity;
+import com.example.mealplanner.data.model.MealEntity;
 
 import java.util.List;
 

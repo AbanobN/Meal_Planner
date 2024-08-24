@@ -2,28 +2,27 @@ package com.example.mealplanner.data.localdata.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-public class SharedPerferencesImp implements SharedPerference{
+public class SharedPerferencesManger implements SharedPerference{
     private SharedPreferences setting;
     private SharedPreferences.Editor editor;
     private final String emailKey = "Email_key";
     private final String passKey = "Pass_key";
     private final String defultValue = "N/A";
     private final String shPreferenceName = "mySharedPerfernce";
-    private static SharedPerferencesImp instance = null;
+    private static SharedPerferencesManger instance = null;
 
-    private SharedPerferencesImp(Context context)
+    private SharedPerferencesManger(Context context)
     {
         this.setting = context.getSharedPreferences(shPreferenceName, Context.MODE_PRIVATE);
         editor = setting.edit();
     }
 
-    public static SharedPerferencesImp getInstance(Context context)
+    public static SharedPerferencesManger getInstance(Context context)
     {
         if(instance == null)
         {
-            instance = new SharedPerferencesImp(context);
+            instance = new SharedPerferencesManger(context);
         }
         return instance;
     }

@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,14 +19,13 @@ import android.widget.CompoundButton;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
-import com.example.mealplanner.data.model.Ingredient;
+import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenter;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenterImp;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import java.lang.annotation.Native;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -50,7 +48,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
 
     private List<AreaData> countries;
     private List<CategorieData> categories;
-    private List<Ingredient> ingredients;
+    private List<IngredientData> ingredientData;
     private List<MealData> meals;
 
 
@@ -85,8 +83,8 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
         categories = new ArrayList<>();
         categoryAdapter = new CategoryAdapter(categories, this);
 
-        ingredients = new ArrayList<>();
-        ingredientAdapter = new IngredientAdapter(ingredients, this);
+        ingredientData = new ArrayList<>();
+        ingredientAdapter = new IngredientAdapter(ingredientData, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -165,9 +163,9 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     }
 
     @Override
-    public void updateIngredientsList(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-        ingredientAdapter.updatedata(ingredients);
+    public void updateIngredientsList(List<IngredientData> ingredientData) {
+        this.ingredientData = ingredientData;
+        ingredientAdapter.updatedata(ingredientData);
         recyclerView.setAdapter(ingredientAdapter);
     }
 
@@ -190,7 +188,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     }
 
     @Override
-    public void onIngredientClick(Ingredient ingredientData) {
+    public void onIngredientClick(IngredientData ingredientData) {
         String data = ingredientData.getName();
         presenter.onIngredientClick(data);
     }

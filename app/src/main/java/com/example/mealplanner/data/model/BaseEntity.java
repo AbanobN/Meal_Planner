@@ -1,25 +1,27 @@
-package com.example.mealplanner.data.localdata.database;
+package com.example.mealplanner.data.model;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "PlanMeals")
-public class PlanEntity {
+public abstract class BaseEntity {
+
     @NonNull
     @PrimaryKey
     private String id;
+
     private String mealName;
     private String mealUrlImg;
     private String userEmail;
-    private String weekDay;
 
-    public PlanEntity(String id, String mealName, String mealUrlImg, String userEmail, String weekDay) {
+    public BaseEntity() {
+        // Default constructor
+    }
+
+    public BaseEntity(String id, String mealName, String mealUrlImg, String userEmail) {
         this.id = id;
         this.mealName = mealName;
         this.mealUrlImg = mealUrlImg;
         this.userEmail = userEmail;
-        this.weekDay = weekDay;
     }
 
     public String getId() {
@@ -53,13 +55,4 @@ public class PlanEntity {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-
-    public String getWeekDay() {
-        return weekDay;
-    }
-
-    public void setWeekDay(String weekDay) {
-        this.weekDay = weekDay;
-    }
 }
-
