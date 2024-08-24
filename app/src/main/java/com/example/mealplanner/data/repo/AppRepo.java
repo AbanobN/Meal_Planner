@@ -12,6 +12,8 @@ import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.model.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseManger;
+import com.example.mealplanner.data.remotedata.firebasedatabase.FirebaseDatabaseService;
+import com.example.mealplanner.data.remotedata.firebasedatabase.SyncService;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitManager;
 
 import java.util.List;
@@ -26,12 +28,17 @@ public class AppRepo implements Repository{
     private SharedPerferencesManger shPer;
     private RetrofitManager retrofitManager;
     private DataBaseManger dataBaseManger;
+    private FirebaseDatabaseService firebaseDatabaseService;
+    private SyncService syncService;
 
     private AppRepo(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManager retrofitManager, DataBaseManger dataBaseManger) {
         this.firebaseAuth = firebaseAuth;
         this.shPer = shPer;
         this.retrofitManager = retrofitManager;
         this.dataBaseManger = dataBaseManger;
+        this.firebaseDatabaseService = new FirebaseDatabaseService();
+        this.syncService = new SyncService(firebaseDatabaseService,dataBaseManger);
+
     }
 
     public static AppRepo getInstance(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManager retrofitManager, DataBaseManger dataBaseManger) {
@@ -139,5 +146,11 @@ public class AppRepo implements Repository{
 
     public Completable insertAllPlans(List<PlanEntity> planEntities) {
         return dataBaseManger.insertAllPlans(planEntities);
+    }
+
+    //Sync Firebase database
+    public void syncData(String userEmail)
+    {
+        syncService.syncData(userEmail);
     }
 }

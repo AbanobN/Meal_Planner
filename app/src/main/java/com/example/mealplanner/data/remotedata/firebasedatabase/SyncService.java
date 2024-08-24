@@ -18,7 +18,7 @@ public class SyncService {
 
     private final FirebaseDatabaseService firebaseDatabaseService;
     private final DataBaseManger dataBaseManger;
-    private Disposable syncDisposable;  // Field to manage the Disposable
+    private Disposable syncDisposable;
 
     public SyncService(FirebaseDatabaseService firebaseDatabaseService, DataBaseManger dataBaseManger) {
         this.firebaseDatabaseService = firebaseDatabaseService;
@@ -43,21 +43,23 @@ public class SyncService {
                                     Completable.complete() :
                                     firebaseDatabaseService.addPlanEntityList(new ArrayList<>(toAddToFirebase));
 
-                            // this need to handle
                             Completable localCompletable = toAddToLocal.isEmpty() ?
                                     Completable.complete() :
                                     dataBaseManger.insertAllPlans(new ArrayList<>(toAddToLocal));
 
+                            // Return a single that emits the concatenated Completable
                             return Completable.concatArray(firebaseCompletable, localCompletable);
                         }
                 )
+                .flatMapCompletable(completable -> completable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        (localCompletable) -> Log.d("SyncService", "Sync completed successfully"),
+                        () -> Log.d("SyncService", "Sync completed successfully"),
                         throwable -> Log.e("SyncService", "Sync error: ", throwable)
                 );
     }
+
 
     // Call this method when you want to dispose of the subscription
     public void dispose() {

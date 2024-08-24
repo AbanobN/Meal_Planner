@@ -27,20 +27,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Test sync
-//        FirebaseDatabaseService firebaseDatabaseService = new FirebaseDatabaseService();
-//        MealRepository mealRepository = new MealRepository(this);
-//
-//        // Initialize SyncService with the required dependencies
-//        syncService = new SyncService(firebaseDatabaseService, mealRepository);
-//
-//        // Example user email
-//        String userEmail = "user1@example.com";
-//
-//        // Call syncData to synchronize data
-//        syncService.syncData(userEmail);
-
         homePersenter = new HomePersenter(this,this);
+
+        homePersenter.syncData();
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();

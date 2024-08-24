@@ -23,24 +23,19 @@ public class FirebaseDatabaseService {
 
     public FirebaseDatabaseService() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // Reference to the "PlanMeals" node where all PlanEntity records will be stored
         this.databaseReference = database.getReference("PlanMeals");
     }
 
-    // Method to add or update a PlanEntity in Firebase
     public Completable addPlanEntity(PlanEntity planEntity) {
         return Completable.create(emitter -> {
-            // Generate a unique ID for each PlanEntity if not already set
             String planId = planEntity.getId();
 
-            // Store the PlanEntity in the database
             databaseReference.child(planId).setValue(planEntity)
                     .addOnSuccessListener(aVoid -> emitter.onComplete()) // Operation succeeded
                     .addOnFailureListener(emitter::onError); // Operation failed
         });
     }
 
-    // Method to delete a PlanEntity from Firebase by ID
     public Completable deletePlanEntity(String planId) {
         return Completable.create(emitter -> {
             databaseReference.child(planId).removeValue()
@@ -49,17 +44,15 @@ public class FirebaseDatabaseService {
         });
     }
 
-    // Method to insert a list of PlanEntity objects into Firebase
+
     public Completable addPlanEntityList(List<PlanEntity> planEntities) {
-        // Create a Completable for each PlanEntity in the list and merge them
         List<Completable> completables = planEntities.stream()
-                .map(this::addPlanEntity) // Use the existing addPlanEntity method for each PlanEntity
-                .collect(Collectors.toList()); // Collect the stream back to a list
+                .map(this::addPlanEntity)
+                .collect(Collectors.toList());
 
         return Completable.merge(completables);
     }
 
-    // Method to read all PlanEntities from Firebase and return as a list
     public Single<List<PlanEntity>> getAllPlanEntities() {
         return Single.<List<PlanEntity>>create(emitter -> {
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -122,7 +115,6 @@ public class FirebaseDatabaseService {
                 .subscribeOn(Schedulers.io()); // Perform the Firebase operation on the IO thread
     }
 
-    // Method to get all PlanEntities with a specific userEmail
     public Single<List<PlanEntity>> getAllPlanEntitiesByUserEmail(String userEmail) {
         return Single.<List<PlanEntity>>create(emitter -> {
                     Query query = databaseReference.orderByChild("userEmail").equalTo(userEmail);
@@ -137,11 +129,9 @@ public class FirebaseDatabaseService {
                                     planEntities.add(planEntity);
                                 }
                             }
-                            if (!planEntities.isEmpty()) {
-                                emitter.onSuccess(planEntities);
-                            } else {
-                                emitter.onError(new Exception("No data found"));
-                            }
+
+                            // Emit an empty list if no data is found
+                            emitter.onSuccess(planEntities);
                         }
 
                         @Override
@@ -150,9 +140,10 @@ public class FirebaseDatabaseService {
                         }
                     });
                 })
-                .subscribeOn(Schedulers.io()) // Perform the Firebase operation on the IO thread
-                .observeOn(Schedulers.computation()); // Observe the result on the computation thread
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation());
     }
+
 
 
 }
