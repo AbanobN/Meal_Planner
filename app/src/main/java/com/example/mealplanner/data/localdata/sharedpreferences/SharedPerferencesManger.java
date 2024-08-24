@@ -56,4 +56,10 @@ public class SharedPerferencesManger implements SharedPerference{
         }
     }
 
+    public String getEmail()
+    {
+        String userEmail = setting.getString(emailKey,defultValue);
+        return userEmail;
+    }
+
 }

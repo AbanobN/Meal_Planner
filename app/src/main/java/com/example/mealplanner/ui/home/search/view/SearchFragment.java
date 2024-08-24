@@ -22,6 +22,7 @@ import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
+import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenter;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenterImp;
 import com.google.android.material.chip.Chip;
@@ -69,6 +70,8 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
         super.onViewCreated(view, savedInstanceState);
 
         presenter = new SearchPresenterImp(getContext(), this);
+
+        presenter.loadAllMeals();
 
         searchBar = view.findViewById(R.id.searchBar);
         chipGroup = view.findViewById(R.id.chipGroup);
@@ -197,14 +200,34 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     @Override
     public void onMealClick(MealData mealData) {
         String data = mealData.getIdMeal();
-        SearchFragmentDirections.ActionSearchToDetails action = SearchFragmentDirections.actionSearchToDetails(data,"");
+        SearchFragmentDirections.ActionSearchToDetails action = SearchFragmentDirections.actionSearchToDetails(data,"Search");
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(action);
+    }
+
+    @Override
+    public void deleteFromFav(MealData meal) {
+        presenter.removeFromFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+    }
+
+    @Override
+    public void insertIntoFav(MealData meal) {
+        presenter.removeFromFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
     }
 
     public void handleError(Throwable t)
     {
         Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void updateFavoriteList(List<MealEntity> mealEntities)
+    {
+        mealAdapter.updateFavorites(mealEntities);
+    }
+
+    public void showToast(String msg)
+    {
+        Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
     }
 
 }

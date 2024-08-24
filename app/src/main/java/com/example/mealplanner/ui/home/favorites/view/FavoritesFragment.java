@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.MealEntity;
@@ -140,20 +141,18 @@ public class FavoritesFragment extends Fragment implements FavoritesView, MealAd
 
     @Override
     public void showMealRemoved() {
-        // Handle meal removed success and refresh the list
         favoritesPresenter.loadAllMeals();
     }
 
     @Override
     public void showError(String error) {
-        // Show error message (you might want to implement this)
+        Toast.makeText(getContext(), "Error : " + error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onMealClick(MealEntity mealEntity) {
-        // Handle meal item click (implement as needed)
         FavoritesFragmentDirections.ActionFavoritesToDetails action =
-                FavoritesFragmentDirections.actionFavoritesToDetails(mealEntity.getId(),"abanob@gmail.com");
+                FavoritesFragmentDirections.actionFavoritesToDetails(mealEntity.getId(),"Favorites");
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(action);
         searchBar.setText("");
@@ -167,7 +166,6 @@ public class FavoritesFragment extends Fragment implements FavoritesView, MealAd
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // Clean up resources related to the presenter
         if (favoritesPresenter instanceof FavoritesPresenterImpl) {
             ((FavoritesPresenterImpl) favoritesPresenter).onDestroy();
         }

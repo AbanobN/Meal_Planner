@@ -4,6 +4,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,11 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.model.PlanEntity;
-import com.example.mealplanner.ui.home.favorites.view.MealAdapter;
-import com.example.mealplanner.ui.home.plan.presenter.PlanPresenter;
 import com.example.mealplanner.ui.home.plan.presenter.PlanPresenterImp;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,19 +54,6 @@ public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickLis
         mealAdapter = new PlanAdapter(meals, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mealAdapter);
-
-        ArrayList<PlanEntity> plans = new ArrayList<>();
-
-        plans.add(new PlanEntity("53011","Chicken Quinoa Greek Salad","https://www.themealdb.com/images/media/meals/k29viq1585565980.jpg","abanob@gmail.com","Sunday"));
-        plans.add(new PlanEntity("52769","Kapsalon","https://www.themealdb.com/images/media/meals/sxysrt1468240488.jpg","abanob@gmail.com","Monday"));
-        plans.add(new PlanEntity("53038","Mustard champ","https://www.themealdb.com/images/media/meals/o7p9581608589317.jpg","abanob@gmail.com","Tuesday"));
-        plans.add(new PlanEntity("52782","Lamb tomato and sweet spices","https://www.themealdb.com/images/media/meals/qtwtss1468572261.jpg","abanob@gmail.com","Wednesday"));
-        plans.add(new PlanEntity("52896","Full English Breakfast","https://www.themealdb.com/images/media/meals/sqrtwu1511721265.jpg","abanob@gmail.com","Thursday"));
-        plans.add(new PlanEntity("52946","Kung Po Prawns","https://www.themealdb.com/images/media/meals/1525873040.jpg","abanob@gmail.com","Friday"));
-        plans.add(new PlanEntity("52813","Kentucky Fried Chicken","https://www.themealdb.com/images/media/meals/xqusqy1487348868.jpg","abanob@gmail.com","Saturday"));
-
-
-        presenter.insertPlans(plans);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this.getContext(),
@@ -123,14 +111,17 @@ public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickLis
 
 
     public void showError(String message) {
-        // Handle error (e.g., show a Toast or Snackbar)
+        Toast.makeText(getContext(), "Error : " + message, Toast.LENGTH_SHORT).show();
     }
 
 
 
     @Override
     public void onPlanClick(PlanEntity planEntity) {
-
+        PlanFragmentDirections.ActionPlanToDetails action =
+                PlanFragmentDirections.actionPlanToDetails(planEntity.getId(),"Plan");
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(action);
     }
 
     @Override

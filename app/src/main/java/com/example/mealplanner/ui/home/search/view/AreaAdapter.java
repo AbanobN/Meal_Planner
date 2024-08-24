@@ -3,6 +3,7 @@ package com.example.mealplanner.ui.home.search.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,19 +57,20 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView areaName;
         ImageView areaImage;
+        ImageButton favBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             areaName = itemView.findViewById(R.id.search_card_title);
             areaImage = itemView.findViewById(R.id.search_card_img);
-
+            favBtn = itemView.findViewById(R.id.favButton);
         }
 
 
         public void bind(AreaData areaData , OnAreaClickListener listener)
         {
             itemView.setOnClickListener(v -> listener.onAreaClick(areaData));
-
+            favBtn.setVisibility(View.GONE);
             String imageName = areaData.getAreaName().toLowerCase();
             int imageResId = itemView.getContext().getResources().getIdentifier(imageName, "drawable", itemView.getContext().getPackageName());
             if (imageResId != 0)

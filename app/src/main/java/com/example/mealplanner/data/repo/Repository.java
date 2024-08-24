@@ -31,13 +31,13 @@ public interface Repository {
 
     public Single<MealData> getMealById(String id);
 
-    public Flowable<List<MealEntity>> getAllMeals();
+    public Flowable<List<MealEntity>> getAllMeals(String userEmail);
 
     public Completable insertMeal(MealEntity mealEntity);
 
     public Completable deleteMeal(MealEntity mealEntity);
 
-    public LiveData<List<PlanEntity>> getMealsForDay(String weekDay);
+    public LiveData<List<PlanEntity>> getMealsForDay(String weekDay , String userEmail);
 
     public Completable insertPlan(PlanEntity planEntity);
 

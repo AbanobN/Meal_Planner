@@ -54,6 +54,10 @@ public class AppRepo implements Repository{
         shPer.removePreferences();
     }
 
+    public String getUserEmail(){
+        return shPer.getEmail();
+    }
+
     // firebase Auth
     public void signInApp(String email, String password, FirebaseAuthCallback callback) {
         firebaseAuth.signIn(email, password, callback);
@@ -107,8 +111,8 @@ public class AppRepo implements Repository{
 
     //Database
     //FavoritesTable
-    public Flowable<List<MealEntity>> getAllMeals() {
-        return dataBaseManger.getAllMeals();
+    public Flowable<List<MealEntity>> getAllMeals(String userEmail) {
+        return dataBaseManger.getAllFavoritesByUserEmail(userEmail);
     }
 
 
@@ -121,8 +125,8 @@ public class AppRepo implements Repository{
     }
 
     // PlanTable
-    public LiveData<List<PlanEntity>> getMealsForDay(String weekDay) {
-        return dataBaseManger.getMealsForDay(weekDay);
+    public LiveData<List<PlanEntity>> getMealsForDay(String weekDay , String userEmail) {
+        return dataBaseManger.getMealsForDay(weekDay, userEmail);
     }
 
     public Completable insertPlan(PlanEntity planEntity) {

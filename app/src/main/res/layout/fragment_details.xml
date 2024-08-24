@@ -111,7 +111,7 @@
                 android:layout_marginBottom="8dp"/>
 
             <!-- Video (Replace this with a YouTube player or WebView) -->
-            <VideoView
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/mealVideo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"

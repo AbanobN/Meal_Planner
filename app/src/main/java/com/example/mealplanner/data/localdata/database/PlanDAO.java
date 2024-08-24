@@ -13,8 +13,8 @@ import java.util.List;
 
 @Dao
 public interface PlanDAO {
-    @Query("SELECT * FROM PlanMeals WHERE weekDay = :weekday")
-    LiveData<List<PlanEntity>> getMealsForDay(String weekday);
+    @Query("SELECT * FROM PlanMeals WHERE weekDay = :weekDay AND userEmail = :userEmail")
+    LiveData<List<PlanEntity>> getPlansByDayAndUser(String weekDay, String userEmail);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertPlan(PlanEntity plan);

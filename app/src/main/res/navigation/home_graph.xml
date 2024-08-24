@@ -49,7 +49,7 @@
             android:name="meaId"
             app:argType="string" />
         <argument
-            android:name="userEmail"
+            android:name="screenCameFrom"
             app:argType="string" />
     </fragment>
 </navigation>

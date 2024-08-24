@@ -24,8 +24,8 @@ public class DataBaseManger {
         planDAO = db.planDAO();
     }
 
-    public Flowable<List<MealEntity>> getAllMeals() {
-        return mealDAO.getAll();
+    public Flowable<List<MealEntity>> getAllFavoritesByUserEmail(String userEmail) {
+        return mealDAO.getAllByUserEmail(userEmail);
     }
 
     public Completable insertMeal(MealEntity mealEntity) {
@@ -53,13 +53,10 @@ public class DataBaseManger {
         return Completable.fromAction(() -> planDAO.insertPlans(planEntities));
     }
 
-    public LiveData<List<PlanEntity>> getMealsForDay(String weekday) {
-        return planDAO.getMealsForDay(weekday);
+    public LiveData<List<PlanEntity>> getMealsForDay(String weekDay, String userEmail) {
+        return planDAO.getPlansByDayAndUser(weekDay,userEmail);
     }
 
-    public Completable insertPlans(List<PlanEntity> planEntities) {
-        return Completable.fromAction(() -> planDAO.insertPlans(planEntities));
-    }
 
 
 }

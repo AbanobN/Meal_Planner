@@ -20,11 +20,13 @@ public class PlanPresenterImp {
     private final PlanFragment view;
     private final AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final String userEmail;
 
 
     public PlanPresenterImp(PlanFragment view, Context context) {
         this.view = view;
         this.repo =  (AppRepo) RepositoryProvider.provideRepository(context);
+        userEmail = repo.getUserEmail();
     }
 
 
@@ -44,7 +46,7 @@ public class PlanPresenterImp {
 
 
     public void loadMealsForDay(String weekday) {
-        repo.getMealsForDay(weekday).observe(view.getViewLifecycleOwner(), meals -> {
+        repo.getMealsForDay(weekday,userEmail).observe(view.getViewLifecycleOwner(), meals -> {
             if (meals != null) {
                 view.showMealsForSelectedDay(meals);
             } else {

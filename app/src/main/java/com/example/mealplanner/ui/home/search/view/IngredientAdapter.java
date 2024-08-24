@@ -3,6 +3,7 @@ package com.example.mealplanner.ui.home.search.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,15 +65,18 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView ingredientName;
         ImageView ingredientImage;
+        ImageButton favBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredientName = itemView.findViewById(R.id.search_card_title);
             ingredientImage = itemView.findViewById(R.id.search_card_img);
+            favBtn = itemView.findViewById(R.id.favButton);
         }
 
         public void bind(IngredientData data , OnIngredientClickListener listener)
         {
+            favBtn.setVisibility(View.GONE);
             itemView.setOnClickListener(v -> listener.onIngredientClick(data));
         }
     }

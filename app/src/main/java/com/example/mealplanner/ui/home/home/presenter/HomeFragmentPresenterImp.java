@@ -1,6 +1,9 @@
 package com.example.mealplanner.ui.home.home.presenter;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.home.view.HomeFragment;
@@ -13,10 +16,12 @@ public class HomeFragmentPresenterImp {
     private HomeFragment view;
     private AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final String userEmail;
 
     public HomeFragmentPresenterImp(Context context, HomeFragment view) {
         this.view = view;
         this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        userEmail = repo.getUserEmail();
     }
 
     public void getCategories(){
@@ -34,7 +39,7 @@ public class HomeFragmentPresenterImp {
         compositeDisposable.add(
                 repo.getMealsByCategory(cat)
                         .subscribe(
-                                meals -> view.handleMealsByCategory(meals), // Define how to show meals in your view
+                                meals -> view.handleMealsByCategory(meals),
                                 throwable -> view.handError(throwable)
                         )
         );
@@ -45,6 +50,46 @@ public class HomeFragmentPresenterImp {
                 repo.getRandomMeal()
                         .subscribe(
                                 meal -> view.handleRandomCard(meal),
+                                throwable -> view.handError(throwable)
+                        )
+        );
+    }
+
+    public void loadAllMeals() {
+        compositeDisposable.add(
+                repo.getAllMeals(userEmail)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                mealEntities -> view.updateFavoriteList(mealEntities),
+                                throwable -> view.handError(throwable)
+                        )
+        );
+    }
+
+    public void addToFavorite(MealEntity meal)
+    {
+        meal.setUserEmail(userEmail);
+
+        compositeDisposable.add(
+                repo.insertMeal(meal)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                () -> view.showToast("Add To Favorite"),
+                                throwable -> view.handError(throwable)
+                        )
+        );
+    }
+
+    public void removeFromFavorite(MealEntity meal) {
+        meal.setUserEmail(userEmail);
+        compositeDisposable.add(
+                repo.deleteMeal(meal)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                () -> view.showToast("Remove From Favorite"),
                                 throwable -> view.handError(throwable)
                         )
         );

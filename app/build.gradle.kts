@@ -76,4 +76,7 @@ dependencies {
 
     //Room with RX
     implementation (libs.room.rxjava3)
+
+    //Youtube
+    implementation (libs.core)
 }
