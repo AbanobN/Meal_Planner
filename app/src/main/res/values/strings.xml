@@ -44,4 +44,8 @@
         <item>Saturday</item>
     </string-array>
 
+    <string name="default_web_client_id">832997206538-pam1v7fqn9mu5t8989o5rlq75en621tj.apps.googleusercontent.com</string>
+    <string name="guest">Guest</string>
+
 </resources>
+

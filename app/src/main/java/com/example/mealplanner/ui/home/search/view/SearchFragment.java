@@ -212,7 +212,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
 
     @Override
     public void insertIntoFav(MealData meal) {
-        presenter.removeFromFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+        presenter.addToFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
     }
 
     public void handleError(Throwable t)

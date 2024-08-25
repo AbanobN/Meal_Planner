@@ -48,7 +48,7 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> Log.d("Favorite", "addToFavorite: "),
+                        () ->  view.showToast("Add To Favorites"),
                         throwable -> view.showError(throwable)
                         )
         );
@@ -63,7 +63,7 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter{
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                () -> Log.d("Favorite", "addToFavorite: "),
+                                () -> view.showToast("Add To Plan"),
                                 throwable -> view.showError(throwable)
                         )
         );

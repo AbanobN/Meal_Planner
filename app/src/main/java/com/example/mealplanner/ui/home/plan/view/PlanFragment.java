@@ -127,6 +127,12 @@ public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickLis
     @Override
     public void onPlanCancel(PlanEntity planEntity) {
         presenter.deletePlan(planEntity);
+        presenter.deletePlanFirebase(planEntity);
         mealAdapter.updatePlanDataList(new ArrayList<>());
+    }
+
+    public void showToast(String msg)
+    {
+        Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
     }
 }

@@ -87,7 +87,16 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
 
         addToFavoritesBtn.setOnClickListener(v -> presenter.addToFavorite(theMeal));
 
-        addToPlanBtn.setOnClickListener(v -> presenter.addToplan(theMeal,"Monday"));
+
+
+        addToPlanBtn.setOnClickListener(v -> {
+            WeekPickerDialog weekPickerDialog = new WeekPickerDialog(getContext(), selectedDate -> {
+                Log.d("SelectedDate", "onClick: " + selectedDate);
+                presenter.addToplan(theMeal,selectedDate);
+            });
+            weekPickerDialog.show();
+
+        });
 
     }
 
@@ -138,6 +147,11 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
             }
         }
         return null;
+    }
+
+    public void showToast(String msg)
+    {
+        Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
     }
 
     @Override

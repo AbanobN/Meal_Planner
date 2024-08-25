@@ -153,4 +153,10 @@ public class AppRepo implements Repository{
     {
         syncService.syncData(userEmail);
     }
+
+    //Delete recored from Firebase database
+    public Completable deleteFromFirebase(String mealId) {
+        return firebaseDatabaseService.deletePlanEntity(mealId);
+    }
+
 }

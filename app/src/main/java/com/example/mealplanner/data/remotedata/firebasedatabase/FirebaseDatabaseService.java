@@ -1,5 +1,7 @@
 package com.example.mealplanner.data.remotedata.firebasedatabase;
 
+import android.util.Log;
+
 import com.example.mealplanner.data.model.PlanEntity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,13 +38,22 @@ public class FirebaseDatabaseService {
         });
     }
 
-    public Completable deletePlanEntity(String planId) {
+    public Completable deletePlanEntity(String mealId) {
         return Completable.create(emitter -> {
-            databaseReference.child(planId).removeValue()
-                    .addOnSuccessListener(aVoid -> emitter.onComplete()) // Operation succeeded
-                    .addOnFailureListener(emitter::onError); // Operation failed
+            DatabaseReference mealRef = databaseReference.child(mealId);
+
+            mealRef.removeValue()
+                    .addOnSuccessListener(aVoid -> emitter.onComplete())
+                    .addOnFailureListener(exception -> {
+                        // Log the exception details
+                        Log.e("Delete", "Error deleting plan: " + exception.getMessage());
+                        emitter.onError(exception);
+                    });
         });
     }
+
+
+
 
 
     public Completable addPlanEntityList(List<PlanEntity> planEntities) {
@@ -74,8 +85,8 @@ public class FirebaseDatabaseService {
                         }
                     });
                 })
-                .subscribeOn(Schedulers.io()) // Perform the Firebase operation on the IO thread
-                .observeOn(Schedulers.computation()) // Observe the result on the computation thread
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
                 .flatMap(planEntities -> {
                     if (planEntities != null && !planEntities.isEmpty()) {
                         return Single.just(planEntities);
@@ -102,17 +113,16 @@ public class FirebaseDatabaseService {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            emitter.onError(databaseError.toException()); // Emit an error if the data read is cancelled
+                            emitter.onError(databaseError.toException());
                         }
                     };
 
-                    // Attach the listener to the database reference
                     databaseReference.addValueEventListener(valueEventListener);
 
-                    // Remove the listener when the Observable is disposed
+
                     emitter.setCancellable(() -> databaseReference.removeEventListener(valueEventListener));
                 })
-                .subscribeOn(Schedulers.io()); // Perform the Firebase operation on the IO thread
+                .subscribeOn(Schedulers.io());
     }
 
     public Single<List<PlanEntity>> getAllPlanEntitiesByUserEmail(String userEmail) {
@@ -130,7 +140,6 @@ public class FirebaseDatabaseService {
                                 }
                             }
 
-                            // Emit an empty list if no data is found
                             emitter.onSuccess(planEntities);
                         }
 

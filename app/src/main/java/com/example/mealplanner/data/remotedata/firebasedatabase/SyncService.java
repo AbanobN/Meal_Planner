@@ -45,7 +45,9 @@ public class SyncService {
 
                             Completable localCompletable = toAddToLocal.isEmpty() ?
                                     Completable.complete() :
-                                    dataBaseManger.insertAllPlans(new ArrayList<>(toAddToLocal));
+                                    dataBaseManger.insertAllPlans(new ArrayList<>(toAddToLocal))
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread());
 
                             // Return a single that emits the concatenated Completable
                             return Completable.concatArray(firebaseCompletable, localCompletable);

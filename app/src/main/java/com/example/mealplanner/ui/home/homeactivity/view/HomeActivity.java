@@ -2,7 +2,9 @@ package com.example.mealplanner.ui.home.homeactivity.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +30,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         setContentView(R.layout.activity_home);
 
         homePersenter = new HomePersenter(this,this);
-
         homePersenter.syncData();
 
         if (getSupportActionBar() != null) {
@@ -44,6 +45,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+                if(homePersenter.getUser().equals("guest@example.com"))
+                {
+                    if(item.getItemId() == R.id.favorites || item.getItemId() == R.id.plan )
+                    {
+                        Toast.makeText(getApplicationContext(), "Please Login", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                }
+                
                 if(item.getItemId() == R.id.logout)
                 {
                     handelLogout();
@@ -61,4 +73,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         startActivity(intent);
         finish();
     }
+
+
 }

@@ -17,11 +17,15 @@ public class HomePersenter implements HomePer{
         this.userEmail = repo.getUserEmail();
     }
 
-
     @Override
     public void logoutUser() {
         repo.removePreferences();
         repo.signOutApp();
+    }
+
+    public String getUser()
+    {
+        return userEmail;
     }
 
     public void syncData()

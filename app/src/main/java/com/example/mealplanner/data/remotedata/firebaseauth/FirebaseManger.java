@@ -38,5 +38,6 @@ public class FirebaseManger implements AuthModel {
     public void signOut() {
         mAuth.signOut();
     }
+
 }
 

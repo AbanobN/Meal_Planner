@@ -79,4 +79,10 @@ dependencies {
 
     //Youtube
     implementation (libs.core)
+
+    //SignIn Google
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("androidx.credentials:credentials:1.2.2")
+    implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 }

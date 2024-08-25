@@ -36,7 +36,7 @@ public class PlanPresenterImp {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                () -> Log.d("PlanPresenter", "Data Insert successfully: "), // Called on successful deletion
+                                () -> view.showToast("Add To Plan"),
                                 throwable -> view.showError("Failed to delete plan: " + throwable.getMessage())
                         )
         );
@@ -61,11 +61,26 @@ public class PlanPresenterImp {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                () -> Log.d("PlanPresenter", "Data deleted successfully: " + planEntity.getMealName()), // Called on successful deletion
-                                throwable -> view.showError("Failed to delete plan: " + throwable.getMessage()) // Called on error
+                                () -> view.showToast(planEntity.getWeekDay() +" Deleted From Plan"),
+                                throwable -> view.showError("Failed to delete plan: " + throwable.getMessage())
                         )
         );
     }
+
+    public void deletePlanFirebase(PlanEntity planEntity) {
+        compositeDisposable.add(
+                repo.deleteFromFirebase(planEntity.getId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+                            Log.d("Delete", "Plan successfully deleted.");
+                        }, throwable -> {
+                            Log.e("Delete", "Error deleting plan: " + throwable.getMessage());
+                        })
+        );
+    }
+
+
 
     public void dispose() {
         compositeDisposable.clear();

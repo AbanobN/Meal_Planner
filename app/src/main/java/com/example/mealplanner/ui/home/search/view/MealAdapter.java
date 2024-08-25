@@ -54,8 +54,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         } else {
             holder.favBtn.setSelected(false);
         }
-
-        // Set onClickListener for favorite button
+        
         holder.favBtn.setOnClickListener(v -> {
             if (isMealFavorite(data.getIdMeal())) {
                 listener.deleteFromFav(data);
