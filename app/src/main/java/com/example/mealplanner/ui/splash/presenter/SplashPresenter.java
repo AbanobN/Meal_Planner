@@ -2,10 +2,7 @@ package com.example.mealplanner.ui.splash.presenter;
 
 import android.content.Context;
 
-import com.example.mealplanner.data.remotedata.firebaseauth.AuthModelImpl;
-import com.example.mealplanner.data.remotedata.retrofit.RetrofitClient;
 import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesImp;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.splash.view.SplashView;
 
@@ -26,7 +23,7 @@ public class SplashPresenter implements SplashPre{
 
     public void isAppUser()
     {
-        if(repo.readPrefernces())
+        if(repo.readPreferences())
         {
             _view.isAuthentice(true);
         }
@@ -37,7 +34,6 @@ public class SplashPresenter implements SplashPre{
 
     public void start(Long time) {
         Observable<Long> doAction = Observable.timer(time, TimeUnit.SECONDS);
-
         doAction.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((i) -> {
             _view.navigateToNextActivity();
         });

@@ -3,32 +3,31 @@ package com.example.mealplanner.ui.home.search.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.model.CategorieData;
-import com.example.mealplanner.data.model.Ingredient;
+import com.example.mealplanner.data.model.IngredientData;
 
 import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
-    private List<Ingredient> ingredients;
+    private List<IngredientData> ingredientData;
     private OnIngredientClickListener listener;
 
-    public IngredientAdapter(List<Ingredient> ingredients , OnIngredientClickListener listener) {
-        this.ingredients = ingredients;
+    public IngredientAdapter(List<IngredientData> ingredientData, OnIngredientClickListener listener) {
+        this.ingredientData = ingredientData;
         this.listener = listener;
     }
 
-    public void setString(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setString(List<IngredientData> ingredientData) {
+        this.ingredientData = ingredientData;
     }
 
     @NonNull
@@ -41,45 +40,48 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.ingredientName.setText(ingredients.get(position).getName());
+        holder.ingredientName.setText(ingredientData.get(position).getName());
 
         Glide.with(holder.itemView.getContext())
-                .load("https://www.themealdb.com/images/ingredients/" + ingredients.get(position).getName() + "-Small.png")
+                .load("https://www.themealdb.com/images/ingredients/" + ingredientData.get(position).getName() + "-Small.png")
                 .into(holder.ingredientImage);
 
-        Ingredient data = ingredients.get(position);
+        IngredientData data = ingredientData.get(position);
 
         holder.bind(data , listener);
 
     }
 
-    public void updatedata(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void updatedata(List<IngredientData> ingredientData) {
+        this.ingredientData = ingredientData;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return ingredientData.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView ingredientName;
         ImageView ingredientImage;
+        ImageButton favBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredientName = itemView.findViewById(R.id.search_card_title);
             ingredientImage = itemView.findViewById(R.id.search_card_img);
+            favBtn = itemView.findViewById(R.id.favButton);
         }
 
-        public void bind(Ingredient data , OnIngredientClickListener listener)
+        public void bind(IngredientData data , OnIngredientClickListener listener)
         {
+            favBtn.setVisibility(View.GONE);
             itemView.setOnClickListener(v -> listener.onIngredientClick(data));
         }
     }
 
     public interface OnIngredientClickListener {
-        void onIngredientClick(Ingredient data);
+        void onIngredientClick(IngredientData data);
     }
 }

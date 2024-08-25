@@ -2,7 +2,7 @@ package com.example.mealplanner.data.remotedata.retrofit;
 
 import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
-import com.example.mealplanner.data.model.Ingredient;
+import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
@@ -50,10 +50,10 @@ public class ApiResponse {
 
     public class IngredientResponse {
         @SerializedName("meals")
-        private List<Ingredient> ingredients;
+        private List<IngredientData> ingredientData;
 
-        public List<Ingredient> getIngredients() {
-            return ingredients;
+        public List<IngredientData> getIngredients() {
+            return ingredientData;
         }
     }
 

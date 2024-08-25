@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/fav_img"
+            android:id="@+id/plan_img"
             android:layout_width="147dp"
             android:layout_height="125dp"
             android:layout_marginStart="16dp"
@@ -27,29 +27,17 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/fav_title"
+            android:id="@+id/plan_title"
             android:layout_width="150dp"
             android:layout_height="42dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="80dp"
             android:padding="10dp"
             android:text="Meal Name"
             android:textAlignment="textStart"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/fav_img"
+            app:layout_constraintStart_toEndOf="@+id/plan_img"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/addToPlan"
-            android:layout_width="151dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="28dp"
-            android:text="@string/addtoplan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.151"
-            app:layout_constraintStart_toEndOf="@+id/fav_img"
-            app:layout_constraintTop_toBottomOf="@+id/fav_title" />
 
         <FrameLayout
             android:id="@+id/cancel_btn"
@@ -65,7 +53,7 @@
             android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.802"
-            app:layout_constraintStart_toEndOf="@+id/fav_title"
+            app:layout_constraintStart_toEndOf="@+id/plan_title"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView

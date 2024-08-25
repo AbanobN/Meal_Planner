@@ -2,10 +2,10 @@ package com.example.mealplanner.data.remotedata.firebaseauth;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class AuthModelImpl implements AuthModel {
+public class FirebaseManger implements AuthModel {
     private FirebaseAuth mAuth;
 
-    public AuthModelImpl() {
+    public FirebaseManger() {
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -38,5 +38,6 @@ public class AuthModelImpl implements AuthModel {
     public void signOut() {
         mAuth.signOut();
     }
+
 }
 

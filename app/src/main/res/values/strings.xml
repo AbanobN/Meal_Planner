@@ -26,12 +26,13 @@
     <string name="meals">Meals</string>
     <string name="categories">Category</string>
     <string name="area">Area</string>
-    <string name="ingredient">Ingredients</string>
+    <string name="ingredientData">Ingredients</string>
     <string name="cancel_button_desc">Cancel</string>
     <string name="addtoplan">Add To Plan</string>
     <string name="choose">Choose Day</string>
 
     <string name="select_weekday">Select a weekday</string>
+    <string name="bestsell">Best Sell</string>
     <string-array name="weekdays_array">
         <item>Choose a day</item>
         <item>Sunday</item>
@@ -43,4 +44,8 @@
         <item>Saturday</item>
     </string-array>
 
+    <string name="default_web_client_id">832997206538-pam1v7fqn9mu5t8989o5rlq75en621tj.apps.googleusercontent.com</string>
+    <string name="guest">Guest</string>
+
 </resources>
+

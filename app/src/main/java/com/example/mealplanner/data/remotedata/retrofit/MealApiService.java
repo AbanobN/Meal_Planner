@@ -7,35 +7,28 @@ import retrofit2.http.Query;
 
 public interface MealApiService {
 
-    //Callback  Queries
+    // RX Queries
     @GET("random.php")
-    Call<ApiResponse.MealResponse> getRandomMeal();
+    Single<ApiResponse.MealResponse> getRandomMeal();
 
     @GET("lookup.php")
-    Call<ApiResponse.MealResponse> getMealById(@Query("i") String mealId);
+    Single<ApiResponse.MealResponse> getMealById(@Query("i") String mealId);
 
     @GET("categories.php")
-    Call<ApiResponse.CategoryResponse> getCategories();
+    Single<ApiResponse.CategoryResponse> getCategories();
 
     @GET("list.php")
-    Call<ApiResponse.AreaResponse> getAreaList(@Query("a") String listType);
+    Single<ApiResponse.AreaResponse> getAreaList(@Query("a") String listType);
 
     @GET("filter.php")
-    Call<ApiResponse.MealResponse> filterMealsByCategory(@Query("c") String category);
+    Single<ApiResponse.MealResponse> filterMealsByCategory(@Query("c") String category);
 
-
-    // RX Queries
     @GET("search.php")
     Single<ApiResponse.MealResponse> searchMealByName(@Query("s") String mealName);
-
-    @GET("categories.php")
-    Single<ApiResponse.CategoryResponse> getCategoriesRX();
 
     @GET("filter.php")
     Single<ApiResponse.MealResponse> filterMealsByIngredient(@Query("i") String ingredient);
 
-    @GET("filter.php")
-    Single<ApiResponse.MealResponse> filterMealsByCategoryRx(@Query("c") String category);
 
     @GET("filter.php")
     Single<ApiResponse.MealResponse> filterMealsByArea(@Query("a") String area);

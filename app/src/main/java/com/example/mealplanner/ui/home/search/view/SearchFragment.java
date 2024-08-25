@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,18 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
-import com.example.mealplanner.data.model.Ingredient;
+import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
+import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenter;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenterImp;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import java.lang.annotation.Native;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +41,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     private ChipGroup chipGroup;
     private RecyclerView recyclerView;
     private AutoCompleteTextView searchBar;
-    private SearchPresenter presenter;
+    private SearchPresenterImp presenter;
 
     private CategoryAdapter categoryAdapter;
     private IngredientAdapter ingredientAdapter;
@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
 
     private List<AreaData> countries;
     private List<CategorieData> categories;
-    private List<Ingredient> ingredients;
+    private List<IngredientData> ingredientData;
     private List<MealData> meals;
 
 
@@ -71,6 +71,8 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
 
         presenter = new SearchPresenterImp(getContext(), this);
 
+        presenter.loadAllMeals();
+
         searchBar = view.findViewById(R.id.searchBar);
         chipGroup = view.findViewById(R.id.chipGroup);
         recyclerView = view.findViewById(R.id.rec_view);
@@ -85,8 +87,8 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
         categories = new ArrayList<>();
         categoryAdapter = new CategoryAdapter(categories, this);
 
-        ingredients = new ArrayList<>();
-        ingredientAdapter = new IngredientAdapter(ingredients, this);
+        ingredientData = new ArrayList<>();
+        ingredientAdapter = new IngredientAdapter(ingredientData, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -106,7 +108,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
                         String filterBy = chip.getText().toString();
                         switch (filterBy) {
                             case "Category":
-                                presenter.getCategories();
+                                presenter.getAllCategories();
                                 break;
                             case "Area":
                                 presenter.getAllCountries();
@@ -165,9 +167,9 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     }
 
     @Override
-    public void updateIngredientsList(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-        ingredientAdapter.updatedata(ingredients);
+    public void updateIngredientsList(List<IngredientData> ingredientData) {
+        this.ingredientData = ingredientData;
+        ingredientAdapter.updatedata(ingredientData);
         recyclerView.setAdapter(ingredientAdapter);
     }
 
@@ -190,7 +192,7 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     }
 
     @Override
-    public void onIngredientClick(Ingredient ingredientData) {
+    public void onIngredientClick(IngredientData ingredientData) {
         String data = ingredientData.getName();
         presenter.onIngredientClick(data);
     }
@@ -198,8 +200,34 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     @Override
     public void onMealClick(MealData mealData) {
         String data = mealData.getIdMeal();
-        SearchFragmentDirections.ActionSearchToDetails action = SearchFragmentDirections.actionSearchToDetails(data,"");
+        SearchFragmentDirections.ActionSearchToDetails action = SearchFragmentDirections.actionSearchToDetails(data,"Search");
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(action);
     }
+
+    @Override
+    public void deleteFromFav(MealData meal) {
+        presenter.removeFromFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+    }
+
+    @Override
+    public void insertIntoFav(MealData meal) {
+        presenter.addToFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+    }
+
+    public void handleError(Throwable t)
+    {
+        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void updateFavoriteList(List<MealEntity> mealEntities)
+    {
+        mealAdapter.updateFavorites(mealEntities);
+    }
+
+    public void showToast(String msg)
+    {
+        Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
+    }
+
 }

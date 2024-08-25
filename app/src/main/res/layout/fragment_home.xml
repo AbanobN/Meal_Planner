@@ -13,19 +13,79 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/rubik_bold"
                 android:padding="10dp"
+                android:text="@string/bestsell"
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/random_card"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:contentPadding="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/mealCard_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_launcher_background" />
+
+                    <TextView
+                        android:id="@+id/mealCard_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="136dp"
+                        android:background="#860B0C17"
+                        android:fontFamily="@font/rubik_medium"
+                        android:padding="5dp"
+                        android:text="TextView"
+                        android:textAlignment="center"
+                        android:textColor="@color/light_orange"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/mealCard_img" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/rubik_bold"
+                android:padding="10dp"
                 android:text="@string/categorieslist"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cat_rec_view"
@@ -44,8 +104,8 @@
                 android:fontFamily="@font/rubik_bold"
                 android:padding="10dp"
                 android:text="@string/categorymeals"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/meal_rec_view"
@@ -53,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="1dp"
+                android:layout_marginBottom="20dp"
                 tools:listitem="@layout/meal_card" />
         </LinearLayout>
     </ScrollView>

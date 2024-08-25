@@ -65,8 +65,8 @@ public class MealData {
         this.strMealThumb = strMealThumb;
     }
 
-    public List<Ingredient> getIngredients() {
-        List<Ingredient> ingredients = new ArrayList<>();
+    public List<IngredientData> getIngredients() {
+        List<IngredientData> ingredientData = new ArrayList<>();
         Field[] fields = this.getClass().getDeclaredFields();
 
         for (Field field : fields) {
@@ -75,7 +75,7 @@ public class MealData {
                     field.setAccessible(true);
                     String value = (String) field.get(this);
                     if (value != null && !value.isEmpty()) {
-                        ingredients.add(new Ingredient(value));
+                        ingredientData.add(new IngredientData(value));
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -83,7 +83,7 @@ public class MealData {
             }
         }
 
-        return ingredients;
+        return ingredientData;
     }
 
     // Getters and Setters

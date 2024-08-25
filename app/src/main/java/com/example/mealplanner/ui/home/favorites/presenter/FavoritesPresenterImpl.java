@@ -3,7 +3,7 @@ package com.example.mealplanner.ui.home.favorites.presenter;
 import android.content.Context;
 
 import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.data.localdata.database.MealEntity;
+import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.favorites.view.FavoritesView;
 
@@ -16,16 +16,18 @@ public class FavoritesPresenterImpl implements FavoritesPresenter {
     private final FavoritesView favoritesView;
     private final AppRepo appRepo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final String userEmail;
 
     public FavoritesPresenterImpl(FavoritesView favoritesView, Context context) {
         this.favoritesView = favoritesView;
         this.appRepo = (AppRepo) RepositoryProvider.provideRepository(context);
+        userEmail = appRepo.getUserEmail();
     }
 
     @Override
     public void loadAllMeals() {
         compositeDisposable.add(
-                appRepo.getAllMeals()
+                appRepo.getAllMeals(userEmail)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
@@ -60,6 +62,8 @@ public class FavoritesPresenterImpl implements FavoritesPresenter {
                         )
         );
     }
+
+
 
     public void onDestroy() {
         compositeDisposable.clear();

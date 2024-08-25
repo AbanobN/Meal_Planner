@@ -1,11 +1,9 @@
-package com.example.mealplanner.data.localdata.database;
+package com.example.mealplanner.data.model;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "FavoritesMeals")
-public class MealEntity {
+public abstract class BaseEntity {
 
     @NonNull
     @PrimaryKey
@@ -15,7 +13,11 @@ public class MealEntity {
     private String mealUrlImg;
     private String userEmail;
 
-    public MealEntity(String id, String mealName, String mealUrlImg, String userEmail) {
+    public BaseEntity() {
+        // Default constructor
+    }
+
+    public BaseEntity(String id, String mealName, String mealUrlImg, String userEmail) {
         this.id = id;
         this.mealName = mealName;
         this.mealUrlImg = mealUrlImg;
