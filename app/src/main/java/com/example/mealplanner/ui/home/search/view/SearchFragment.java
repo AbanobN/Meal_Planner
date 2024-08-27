@@ -23,7 +23,6 @@ import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
-import com.example.mealplanner.ui.home.search.presenter.SearchPresenter;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenterImp;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -36,7 +35,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class SearchFragment extends Fragment implements SearchView, CategoryAdapter.OnCategoryClickListener, IngredientAdapter.OnIngredientClickListener, AreaAdapter.OnAreaClickListener , MealAdapter.OnMealClickListener{
+public class SearchFragment extends Fragment implements SearchView {
 
     private ChipGroup chipGroup;
     private RecyclerView recyclerView;
@@ -52,7 +51,6 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
     private List<CategorieData> categories;
     private List<IngredientData> ingredientData;
     private List<MealData> meals;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -215,16 +213,19 @@ public class SearchFragment extends Fragment implements SearchView, CategoryAdap
         presenter.addToFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
     }
 
+    @Override
     public void handleError(Throwable t)
     {
         Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void updateFavoriteList(List<MealEntity> mealEntities)
     {
         mealAdapter.updateFavorites(mealEntities);
     }
 
+    @Override
     public void showToast(String msg)
     {
         Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();

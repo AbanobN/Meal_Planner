@@ -45,6 +45,7 @@ public class LoginPresenterImpl implements LoginPresenter , FirebaseAuthCallback
         model.signInApp(email, password, this);
     }
 
+    @Override
     public void signInUsingGmailAccount(String idToken, OnLoginWithGmailResponse listener) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
@@ -58,6 +59,7 @@ public class LoginPresenterImpl implements LoginPresenter , FirebaseAuthCallback
         });
     }
 
+    @Override
     public void signInAnonymously() {
         FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

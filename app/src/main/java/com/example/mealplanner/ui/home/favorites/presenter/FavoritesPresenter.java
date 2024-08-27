@@ -4,6 +4,7 @@ import com.example.mealplanner.data.model.MealEntity;
 
 public interface FavoritesPresenter {
     void loadAllMeals();
-    void addMeal(MealEntity mealEntity);
+//    public void addMeal(MealEntity mealEntity);
     void removeMeal(MealEntity mealEntity);
+    public void onDestroy();
 }

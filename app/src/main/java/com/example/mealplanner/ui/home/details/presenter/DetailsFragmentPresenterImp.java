@@ -39,6 +39,7 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter{
         );
     }
 
+    @Override
     public void addToFavorite(MealEntity meal)
     {
         meal.setUserEmail(user);
@@ -54,6 +55,7 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter{
         );
     }
 
+    @Override
     public void addToplan(MealEntity meal ,String weekDay)
     {
         PlanEntity plan = new PlanEntity(meal.getId(),meal.getMealName(),meal.getMealUrlImg(),user,weekDay);
@@ -69,7 +71,7 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter{
         );
     }
 
-
+    @Override
     public void onDestroy() {
         compositeDisposable.clear();
 

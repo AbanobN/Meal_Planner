@@ -21,6 +21,7 @@ public class SplashPresenter implements SplashPre{
         this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
     }
 
+    @Override
     public void isAppUser()
     {
         if(repo.readPreferences())
@@ -32,6 +33,7 @@ public class SplashPresenter implements SplashPre{
         }
     }
 
+    @Override
     public void start(Long time) {
         Observable<Long> doAction = Observable.timer(time, TimeUnit.SECONDS);
         doAction.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((i) -> {

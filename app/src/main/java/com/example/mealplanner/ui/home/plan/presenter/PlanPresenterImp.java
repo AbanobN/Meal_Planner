@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class PlanPresenterImp {
+public class PlanPresenterImp implements PlanPresenter {
 
     private final PlanFragment view;
     private final AppRepo repo;
@@ -30,6 +30,7 @@ public class PlanPresenterImp {
     }
 
 
+    @Override
     public void insertPlans(List<PlanEntity> plans) {
         compositeDisposable.add(
                 repo.insertAllPlans(plans)
@@ -45,6 +46,7 @@ public class PlanPresenterImp {
 
 
 
+    @Override
     public void loadMealsForDay(String weekday) {
         repo.getMealsForDay(weekday,userEmail).observe(view.getViewLifecycleOwner(), meals -> {
             if (meals != null) {
@@ -55,6 +57,7 @@ public class PlanPresenterImp {
         });
     }
 
+    @Override
     public void deletePlan(PlanEntity planEntity) {
         compositeDisposable.add(
                 repo.deletePlan(planEntity)
@@ -67,6 +70,7 @@ public class PlanPresenterImp {
         );
     }
 
+    @Override
     public void deletePlanFirebase(PlanEntity planEntity) {
         compositeDisposable.add(
                 repo.deleteFromFirebase(planEntity.getId())
@@ -82,6 +86,7 @@ public class PlanPresenterImp {
 
 
 
+    @Override
     public void dispose() {
         compositeDisposable.clear();
     }

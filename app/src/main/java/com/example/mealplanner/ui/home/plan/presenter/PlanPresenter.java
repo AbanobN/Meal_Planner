@@ -1,10 +1,17 @@
 package com.example.mealplanner.ui.home.plan.presenter;
 
-import android.view.View;
+import com.example.mealplanner.data.model.PlanEntity;
+
+import java.util.List;
 
 public interface PlanPresenter {
-    void attachView(View view);
-    void detachView();
-    void fetchMealsForDay(String day);
+    void insertPlans(List<PlanEntity> plans);
 
+    void loadMealsForDay(String weekday);
+
+    void deletePlan(PlanEntity planEntity);
+
+    void deletePlanFirebase(PlanEntity planEntity);
+
+    void dispose();
 }

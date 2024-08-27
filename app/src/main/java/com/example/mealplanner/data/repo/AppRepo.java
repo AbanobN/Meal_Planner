@@ -2,7 +2,7 @@ package com.example.mealplanner.data.repo;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.mealplanner.data.localdata.database.DataBaseManger;
+import com.example.mealplanner.data.localdata.database.DataBaseMangerImp;
 import com.example.mealplanner.data.localdata.sharedpreferences.SharedPerferencesManger;
 import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
@@ -12,9 +12,9 @@ import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.model.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseManger;
-import com.example.mealplanner.data.remotedata.firebasedatabase.FirebaseDatabaseService;
-import com.example.mealplanner.data.remotedata.firebasedatabase.SyncService;
-import com.example.mealplanner.data.remotedata.retrofit.RetrofitManager;
+import com.example.mealplanner.data.remotedata.firebasedatabase.FirebaseDatabaseServiceImp;
+import com.example.mealplanner.data.remotedata.firebasedatabase.SyncServiceImp;
+import com.example.mealplanner.data.remotedata.retrofit.RetrofitManagerImp;
 
 import java.util.List;
 
@@ -26,24 +26,24 @@ public class AppRepo implements Repository{
     private static AppRepo instance = null;
     private FirebaseManger firebaseAuth;
     private SharedPerferencesManger shPer;
-    private RetrofitManager retrofitManager;
-    private DataBaseManger dataBaseManger;
-    private FirebaseDatabaseService firebaseDatabaseService;
-    private SyncService syncService;
+    private RetrofitManagerImp retrofitManagerImp;
+    private DataBaseMangerImp dataBaseMangerImp;
+    private FirebaseDatabaseServiceImp firebaseDatabaseServiceImp;
+    private SyncServiceImp syncServiceImp;
 
-    private AppRepo(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManager retrofitManager, DataBaseManger dataBaseManger) {
+    private AppRepo(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManagerImp retrofitManagerImp, DataBaseMangerImp dataBaseMangerImp) {
         this.firebaseAuth = firebaseAuth;
         this.shPer = shPer;
-        this.retrofitManager = retrofitManager;
-        this.dataBaseManger = dataBaseManger;
-        this.firebaseDatabaseService = new FirebaseDatabaseService();
-        this.syncService = new SyncService(firebaseDatabaseService,dataBaseManger);
+        this.retrofitManagerImp = retrofitManagerImp;
+        this.dataBaseMangerImp = dataBaseMangerImp;
+        this.firebaseDatabaseServiceImp = new FirebaseDatabaseServiceImp();
+        this.syncServiceImp = new SyncServiceImp(firebaseDatabaseServiceImp, dataBaseMangerImp);
 
     }
 
-    public static AppRepo getInstance(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManager retrofitManager, DataBaseManger dataBaseManger) {
+    public static AppRepo getInstance(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManagerImp retrofitManagerImp, DataBaseMangerImp dataBaseMangerImp) {
         if (instance == null) {
-            instance = new AppRepo(firebaseAuth, shPer, retrofitManager, dataBaseManger);
+            instance = new AppRepo(firebaseAuth, shPer, retrofitManagerImp, dataBaseMangerImp);
         }
         return instance;
     }
@@ -80,83 +80,83 @@ public class AppRepo implements Repository{
 
     //Retrofit
     public Single<List<CategorieData>> getAllCategories() {
-        return retrofitManager.fetchCategories();
+        return retrofitManagerImp.fetchCategories();
     }
     public Single<List<AreaData>> getAreasList() {
-        return retrofitManager.fetchAreasList();
+        return retrofitManagerImp.fetchAreasList();
     }
 
     public Single<List<IngredientData>> getAllIngredients() {
-        return retrofitManager.fetchAllIngredients();
+        return retrofitManagerImp.fetchAllIngredients();
     }
 
     public Single<List<MealData>> getMealsByCategory(String category) {
-        return retrofitManager.fetchMealsByCategory(category);
+        return retrofitManagerImp.fetchMealsByCategory(category);
     }
 
     public Single<List<MealData>> getMealsByArea(String area) {
-        return retrofitManager.fetchMealsByArea(area);
+        return retrofitManagerImp.fetchMealsByArea(area);
     }
 
     public Single<List<MealData>> getMealsByIngredient(String ingredient) {
-        return retrofitManager.fetchMealsByIngredient(ingredient);
+        return retrofitManagerImp.fetchMealsByIngredient(ingredient);
     }
 
     public Single<MealData> getRandomMeal() {
-        return retrofitManager.fetchRandomMeal();
+        return retrofitManagerImp.fetchRandomMeal();
     }
 
     public Single<MealData> getMealById(String id) {
 
-        return retrofitManager.fetchMealById(id);
+        return retrofitManagerImp.fetchMealById(id);
     }
 
     public Single<List<MealData>> searchMealByName(String mealName) {
-        return retrofitManager.searchMealByName(mealName);
+        return retrofitManagerImp.searchMealByName(mealName);
     }
 
 
     //Database
     //FavoritesTable
     public Flowable<List<MealEntity>> getAllMeals(String userEmail) {
-        return dataBaseManger.getAllFavoritesByUserEmail(userEmail);
+        return dataBaseMangerImp.getAllFavoritesByUserEmail(userEmail);
     }
 
 
     public Completable insertMeal(MealEntity mealEntity) {
-        return dataBaseManger.insertMeal(mealEntity);
+        return dataBaseMangerImp.insertMeal(mealEntity);
     }
 
     public Completable deleteMeal(MealEntity mealEntity) {
-        return dataBaseManger.deleteMeal(mealEntity);
+        return dataBaseMangerImp.deleteMeal(mealEntity);
     }
 
     // PlanTable
     public LiveData<List<PlanEntity>> getMealsForDay(String weekDay , String userEmail) {
-        return dataBaseManger.getMealsForDay(weekDay, userEmail);
+        return dataBaseMangerImp.getMealsForDay(weekDay, userEmail);
     }
 
     public Completable insertPlan(PlanEntity planEntity) {
-        return dataBaseManger.insertPlan(planEntity);
+        return dataBaseMangerImp.insertPlan(planEntity);
     }
 
     public Completable deletePlan(PlanEntity planEntity) {
-        return dataBaseManger.deletePlan(planEntity);
+        return dataBaseMangerImp.deletePlan(planEntity);
     }
 
     public Completable insertAllPlans(List<PlanEntity> planEntities) {
-        return dataBaseManger.insertAllPlans(planEntities);
+        return dataBaseMangerImp.insertAllPlans(planEntities);
     }
 
     //Sync Firebase database
     public void syncData(String userEmail)
     {
-        syncService.syncData(userEmail);
+        syncServiceImp.syncData(userEmail);
     }
 
     //Delete recored from Firebase database
     public Completable deleteFromFirebase(String mealId) {
-        return firebaseDatabaseService.deletePlanEntity(mealId);
+        return firebaseDatabaseServiceImp.deletePlanEntity(mealId);
     }
 
 }

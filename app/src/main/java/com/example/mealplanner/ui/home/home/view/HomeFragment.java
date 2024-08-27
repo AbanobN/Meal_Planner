@@ -104,16 +104,19 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void showToast(String msg)
     {
         Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void updateFavoriteList(List<MealEntity> favMeals)
     {
         mealAdapter.updateFavorites(favMeals);
     }
 
+    @Override
     public void handleRandomCard(MealData mealData)
     {
         randomMealText.setText(mealData.getStrMeal());

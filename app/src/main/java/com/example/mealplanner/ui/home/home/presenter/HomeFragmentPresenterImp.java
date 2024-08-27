@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class HomeFragmentPresenterImp {
+public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     private HomeFragment view;
     private AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -24,6 +24,7 @@ public class HomeFragmentPresenterImp {
         userEmail = repo.getUserEmail();
     }
 
+    @Override
     public void getCategories(){
     compositeDisposable.add(
             repo.getAllCategories() // This internally calls fetchCategories
@@ -34,6 +35,7 @@ public class HomeFragmentPresenterImp {
         );
     }
 
+    @Override
     public void getMealsByCategories(String cat)
     {
         compositeDisposable.add(
@@ -45,6 +47,7 @@ public class HomeFragmentPresenterImp {
         );
     }
 
+    @Override
     public void getRandomMeal() {
         compositeDisposable.add(
                 repo.getRandomMeal()
@@ -55,6 +58,7 @@ public class HomeFragmentPresenterImp {
         );
     }
 
+    @Override
     public void loadAllMeals() {
         compositeDisposable.add(
                 repo.getAllMeals(userEmail)
@@ -67,6 +71,7 @@ public class HomeFragmentPresenterImp {
         );
     }
 
+    @Override
     public void addToFavorite(MealEntity meal)
     {
         meal.setUserEmail(userEmail);
@@ -82,6 +87,7 @@ public class HomeFragmentPresenterImp {
         );
     }
 
+    @Override
     public void removeFromFavorite(MealEntity meal) {
         meal.setUserEmail(userEmail);
         compositeDisposable.add(

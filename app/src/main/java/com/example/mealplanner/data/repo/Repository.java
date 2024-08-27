@@ -44,4 +44,8 @@ public interface Repository {
     public Completable deletePlan(PlanEntity planEntity);
 
     public Completable insertAllPlans(List<PlanEntity> planEntities);
+
+    public void syncData(String userEmail);
+
+    public Completable deleteFromFirebase(String mealId);
 }

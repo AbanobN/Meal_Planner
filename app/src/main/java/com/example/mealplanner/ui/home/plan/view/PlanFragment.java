@@ -23,7 +23,7 @@ import com.example.mealplanner.ui.home.plan.presenter.PlanPresenterImp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickListener{
+public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickListener ,PlanFragmentView{
     private PlanPresenterImp presenter;
     private PlanAdapter mealAdapter;
     private TextView dayMeals;
@@ -88,12 +88,12 @@ public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickLis
         super.onDestroyView();
     }
 
-
+    @Override
     public void showMealsForSelectedDay(List<PlanEntity> meals) {
         mealAdapter.updatePlanDataList(meals);
     }
 
-
+    @Override
     public void showDayMealsLabel(String day) {
         dayMeals.setVisibility(View.VISIBLE);
         if(!meals.isEmpty())
@@ -105,11 +105,12 @@ public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickLis
         }
     }
 
+    @Override
     public void hideDayMealsLabel() {
         dayMeals.setVisibility(View.GONE);
     }
 
-
+    @Override
     public void showError(String message) {
         Toast.makeText(getContext(), "Error : " + message, Toast.LENGTH_SHORT).show();
     }
@@ -131,6 +132,7 @@ public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickLis
         mealAdapter.updatePlanDataList(new ArrayList<>());
     }
 
+    @Override
     public void showToast(String msg)
     {
         Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();

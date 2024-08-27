@@ -133,6 +133,7 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
 
     }
 
+    @Override
     public  String extractVideoId(String url) {
         String[] parts = url.split("\\?");
         if (parts.length > 1) {
@@ -149,6 +150,7 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         return null;
     }
 
+    @Override
     public void showToast(String msg)
     {
         Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();

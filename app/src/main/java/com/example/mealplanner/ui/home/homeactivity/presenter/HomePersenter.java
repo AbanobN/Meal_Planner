@@ -23,11 +23,13 @@ public class HomePersenter implements HomePer{
         repo.signOutApp();
     }
 
+    @Override
     public String getUser()
     {
         return userEmail;
     }
 
+    @Override
     public void syncData()
     {
         repo.syncData(userEmail);

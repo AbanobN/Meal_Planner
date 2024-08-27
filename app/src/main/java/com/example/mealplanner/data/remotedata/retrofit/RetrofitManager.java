@@ -4,125 +4,39 @@ import com.example.mealplanner.data.model.AreaData;
 import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
 import java.util.List;
-import java.util.NoSuchElementException;
 
-public class RetrofitManager {
+import io.reactivex.rxjava3.core.Single;
 
-    private final MealApiService apiService;
-
-    public RetrofitManager() {
-        apiService = RetrofitClient.getApiService();
-    }
-
+public interface RetrofitManager {
     // All Categories
-    public Single<List<CategorieData>> fetchCategories() {
-        return apiService.getCategories()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getCategories())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
+    Single<List<CategorieData>> fetchCategories();
 
     // All Ingredients
-    public Single<List<IngredientData>> fetchAllIngredients() {
-        return apiService.getAllIngredients()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getIngredients())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
+    Single<List<IngredientData>> fetchAllIngredients();
 
     // All Areas
-    public Single<List<AreaData>> fetchAreasList() {
-        return apiService.getAreasList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getAreas())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
-
+    Single<List<AreaData>> fetchAreasList();
 
     // List of Areas
-    public Single<List<AreaData>> fetchMealsByAreas(String Area) {
-        return apiService.getAreaList(Area)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getAreas())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
+    Single<List<AreaData>> fetchMealsByAreas(String Area);
 
     // Meals By Category
-    public Single<List<MealData>> fetchMealsByCategory(String category) {
-        return apiService.filterMealsByCategory(category)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getMeals())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
+    Single<List<MealData>> fetchMealsByCategory(String category);
 
     // Meals By Ingredient
-    public Single<List<MealData>> fetchMealsByIngredient(String ingredient) {
-        return apiService.filterMealsByIngredient(ingredient)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getMeals())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
+    Single<List<MealData>> fetchMealsByIngredient(String ingredient);
 
     // Meals By Area
-    public Single<List<MealData>> fetchMealsByArea(String area) {
-        return apiService.filterMealsByArea(area)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getMeals())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
-
+    Single<List<MealData>> fetchMealsByArea(String area);
 
     // Random Meal
-    public Single<MealData> fetchRandomMeal() {
-        return apiService.getRandomMeal()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> {
-                    List<MealData> meals = response.getMeals();
-                    if (meals != null && !meals.isEmpty()) {
-                        return meals.get(0);
-                    } else {
-                        throw new NoSuchElementException("No random meal found");
-                    }
-                })
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
+    Single<MealData> fetchRandomMeal();
 
     // Meal By ID
-    public Single<MealData> fetchMealById(String mealId) {
-        return apiService.getMealById(mealId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> {
-                    List<MealData> meals = response.getMeals();
-                    if (meals != null && !meals.isEmpty()) {
-                        return meals.get(0);
-                    } else {
-                        throw new NoSuchElementException("No meal found with ID: " + mealId);
-                    }
-                })
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
+    Single<MealData> fetchMealById(String mealId);
 
     // Search Meal By Name
-    public Single<List<MealData>> searchMealByName(String mealName) {
-        return apiService.searchMealByName(mealName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getMeals())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
-    }
-
+    Single<List<MealData>> searchMealByName(String mealName);
 }
-

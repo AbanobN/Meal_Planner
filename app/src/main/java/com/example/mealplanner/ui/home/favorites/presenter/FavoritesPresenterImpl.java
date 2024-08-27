@@ -37,18 +37,18 @@ public class FavoritesPresenterImpl implements FavoritesPresenter {
         );
     }
 
-    @Override
-    public void addMeal(MealEntity mealEntity) {
-        compositeDisposable.add(
-                appRepo.insertMeal(mealEntity)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                () -> favoritesView.showMealAdded(),
-                                throwable -> favoritesView.showError(throwable.getMessage())
-                        )
-        );
-    }
+//    @Override
+//    public void addMeal(MealEntity mealEntity) {
+//        compositeDisposable.add(
+//                appRepo.insertMeal(mealEntity)
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(
+//                                () -> favoritesView.showMealAdded(),
+//                                throwable -> favoritesView.showError(throwable.getMessage())
+//                        )
+//        );
+//    }
 
     @Override
     public void removeMeal(MealEntity mealEntity) {
@@ -63,8 +63,7 @@ public class FavoritesPresenterImpl implements FavoritesPresenter {
         );
     }
 
-
-
+    @Override
     public void onDestroy() {
         compositeDisposable.clear();
     }

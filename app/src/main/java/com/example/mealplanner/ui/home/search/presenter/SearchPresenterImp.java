@@ -6,14 +6,14 @@ import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.search.view.SearchFragment;
-import com.example.mealplanner.ui.home.search.view.SearchView;
+
 import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class SearchPresenterImp{
+public class SearchPresenterImp implements SearchPresenter {
     private final SearchFragment view;
     private AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -27,6 +27,7 @@ public class SearchPresenterImp{
 
 
 
+    @Override
     public void getAllCategories()
     {
         compositeDisposable.add(
@@ -38,6 +39,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void getAllCountries()
     {
         compositeDisposable.add(
@@ -49,6 +51,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void getAllIngredients()
     {
         compositeDisposable.add(
@@ -60,6 +63,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void searchMeals(String query)
     {
         compositeDisposable.add(
@@ -71,6 +75,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void onAreaClick(String area)
     {
         compositeDisposable.add(
@@ -83,6 +88,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void onCategoryClick(String category)
     {
         compositeDisposable.add(
@@ -95,17 +101,20 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void onIngredientClick(String ingredient)
     {
         compositeDisposable.add(
                 repo.getMealsByIngredient(ingredient)
-                        .map(meals -> new ArrayList<>(meals)) // Convert List to ArrayList
+                        .map(meals -> new ArrayList<>(meals))
                         .subscribe(
-                                arrayListMeals -> view.updateMealsList(arrayListMeals), // Update the view with ArrayList
+                                arrayListMeals -> view.updateMealsList(arrayListMeals),
                                 throwable -> view.handleError(throwable)
                         )
         );
     }
+
+    @Override
     public void loadAllMeals() {
         compositeDisposable.add(
                 repo.getAllMeals(userEmail)
@@ -118,6 +127,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void addToFavorite(MealEntity meal)
     {
         meal.setUserEmail(userEmail);
@@ -133,6 +143,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void removeFromFavorite(MealEntity meal) {
         meal.setUserEmail(userEmail);
         compositeDisposable.add(
@@ -146,6 +157,7 @@ public class SearchPresenterImp{
         );
     }
 
+    @Override
     public void clearDisposables() {
         compositeDisposable.clear();
     }
