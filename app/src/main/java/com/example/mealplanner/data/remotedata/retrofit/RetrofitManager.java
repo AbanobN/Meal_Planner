@@ -11,13 +11,15 @@ import io.reactivex.rxjava3.core.Single;
 
 public interface RetrofitManager {
     // All Categories
-    Single<List<CategorieData>> fetchCategories();
+    public Single<ApiResponse.CategoryResponse> fetchCategories();
 
     // All Ingredients
-    Single<List<IngredientData>> fetchAllIngredients();
+    public Single<ApiResponse.IngredientResponse> fetchAllIngredients();
 
     // All Areas
-    Single<List<AreaData>> fetchAreasList();
+    public Single<ApiResponse.AreaResponse>  fetchAreasList();
+
+    // complite from here
 
     // List of Areas
     Single<List<AreaData>> fetchMealsByAreas(String Area);

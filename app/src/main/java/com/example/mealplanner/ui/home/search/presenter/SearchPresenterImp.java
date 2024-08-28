@@ -3,6 +3,7 @@ package com.example.mealplanner.ui.home.search.presenter;
 import android.content.Context;
 
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.search.view.SearchFragment;
@@ -10,6 +11,7 @@ import com.example.mealplanner.ui.home.search.view.SearchFragment;
 import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -25,28 +27,18 @@ public class SearchPresenterImp implements SearchPresenter {
         userEmail = repo.getUserEmail();
     }
 
-
-
     @Override
     public void getAllCategories()
     {
         compositeDisposable.add(
                 repo.getAllCategories() // This internally calls fetchCategories
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map(ApiResponse.CategoryResponse::getCategories)
+                        .onErrorResumeNext(Single::error)
                         .subscribe(
-                                categories -> view.updateCategoryList(categories),
-                                throwable -> view.handleError(throwable)
-                        )
-        );
-    }
-
-    @Override
-    public void getAllCountries()
-    {
-        compositeDisposable.add(
-                repo.getAreasList()
-                        .subscribe(
-                                areas -> view.updateCountryList(areas),
-                                throwable -> view.handleError(throwable)
+                                view::updateCategoryList,
+                                view::handleError
                         )
         );
     }
@@ -56,9 +48,29 @@ public class SearchPresenterImp implements SearchPresenter {
     {
         compositeDisposable.add(
                 repo.getAllIngredients()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map(ApiResponse.IngredientResponse::getIngredients)
+                        .onErrorResumeNext(Single::error)
                         .subscribe(
-                                ingredients -> view.updateIngredientsList(ingredients),
-                                throwable -> view.handleError(throwable)
+                                view::updateIngredientsList,
+                                view::handleError
+                        )
+        );
+    }
+
+    @Override
+    public void getAllCountries()
+    {
+        compositeDisposable.add(
+                repo.getAreasList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map(ApiResponse.AreaResponse::getAreas)
+                        .onErrorResumeNext(Single::error)
+                        .subscribe(
+                                view::updateCountryList,
+                                view::handleError
                         )
         );
     }

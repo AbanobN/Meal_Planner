@@ -7,6 +7,8 @@ import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
+
 import java.util.List;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Completable;
@@ -25,7 +27,13 @@ public interface Repository {
 
     public void signOutApp();
 
-    public Single<List<CategorieData>> getAllCategories();
+    public Single<ApiResponse.CategoryResponse> getAllCategories();
+
+    public Single<ApiResponse.IngredientResponse> getAllIngredients();
+
+    public Single<ApiResponse.AreaResponse>  getAreasList();
+
+    // complite from here
 
     public Single<List<MealData>> getMealsByCategory(String category);
 

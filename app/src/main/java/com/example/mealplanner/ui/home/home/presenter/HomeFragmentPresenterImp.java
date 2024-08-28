@@ -4,11 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.home.view.HomeFragment;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -28,6 +30,10 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     public void getCategories(){
     compositeDisposable.add(
             repo.getAllCategories() // This internally calls fetchCategories
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map(ApiResponse.CategoryResponse::getCategories)
+            .onErrorResumeNext(Single::error)
             .subscribe(
             categories -> view.handleCategories(categories),
             throwable -> view.handError(throwable)

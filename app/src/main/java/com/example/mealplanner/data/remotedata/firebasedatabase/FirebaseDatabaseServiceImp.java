@@ -111,7 +111,7 @@ public class FirebaseDatabaseServiceImp implements FirebaseDatabaseService {
                                     planEntities.add(planEntity);
                                 }
                             }
-                            emitter.onNext(planEntities); // Emit the updated list of PlanEntities
+                            emitter.onNext(planEntities);
                         }
 
                         @Override

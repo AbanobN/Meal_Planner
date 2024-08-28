@@ -14,6 +14,7 @@ import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseManger;
 import com.example.mealplanner.data.remotedata.firebasedatabase.FirebaseDatabaseServiceImp;
 import com.example.mealplanner.data.remotedata.firebasedatabase.SyncServiceImp;
+import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitManagerImp;
 
 import java.util.List;
@@ -79,16 +80,20 @@ public class AppRepo implements Repository{
     }
 
     //Retrofit
-    public Single<List<CategorieData>> getAllCategories() {
+    public Single<ApiResponse.CategoryResponse> getAllCategories()
+    {
         return retrofitManagerImp.fetchCategories();
     }
-    public Single<List<AreaData>> getAreasList() {
+
+    public Single<ApiResponse.IngredientResponse> getAllIngredients() {
+        return retrofitManagerImp.fetchAllIngredients();
+    }
+
+    public Single<ApiResponse.AreaResponse>  getAreasList() {
         return retrofitManagerImp.fetchAreasList();
     }
 
-    public Single<List<IngredientData>> getAllIngredients() {
-        return retrofitManagerImp.fetchAllIngredients();
-    }
+    // complite from here
 
     public Single<List<MealData>> getMealsByCategory(String category) {
         return retrofitManagerImp.fetchMealsByCategory(category);

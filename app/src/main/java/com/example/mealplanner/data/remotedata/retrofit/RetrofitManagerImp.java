@@ -20,34 +20,24 @@ public class RetrofitManagerImp implements RetrofitManager {
 
     // All Categories
     @Override
-    public Single<List<CategorieData>> fetchCategories() {
-        return apiService.getCategories()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getCategories())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
+    public Single<ApiResponse.CategoryResponse> fetchCategories() {
+        return apiService.getCategories();
     }
+
 
     // All Ingredients
     @Override
-    public Single<List<IngredientData>> fetchAllIngredients() {
-        return apiService.getAllIngredients()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getIngredients())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
+    public Single<ApiResponse.IngredientResponse> fetchAllIngredients() {
+        return apiService.getAllIngredients();
     }
 
     // All Areas
     @Override
-    public Single<List<AreaData>> fetchAreasList() {
-        return apiService.getAreasList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(response -> response.getAreas())
-                .onErrorResumeNext(throwable -> Single.error(throwable));
+    public Single<ApiResponse.AreaResponse> fetchAreasList() {
+        return apiService.getAreasList();
     }
 
+    // complite from here
 
     // List of Areas
     @Override
