@@ -7,6 +7,8 @@ import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
+
 import java.util.List;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Completable;
@@ -19,17 +21,33 @@ public interface Repository {
 
     public void removePreferences();
 
+    public String getUserEmail();
+
     public void signInApp(String email, String password, FirebaseAuthCallback callback);
 
     public void signUpApp(String email, String password, FirebaseAuthCallback callback);
 
     public void signOutApp();
 
-    public Single<List<CategorieData>> getAllCategories();
 
-    public Single<List<MealData>> getMealsByCategory(String category);
+    public Single<ApiResponse.CategoryResponse> getAllCategories();
 
-    public Single<MealData> getMealById(String id);
+    public Single<ApiResponse.IngredientResponse> getAllIngredients();
+
+    public Single<ApiResponse.AreaResponse>  getAreasList();
+
+    public Single<ApiResponse.MealResponse> getMealsByCategory(String category);
+
+    public Single<ApiResponse.MealResponse> getMealsByArea(String area);
+
+    public Single<ApiResponse.MealResponse> getMealsByIngredient(String ingredient);
+
+    public Single<ApiResponse.MealResponse> getRandomMeal();
+
+    public Single<ApiResponse.MealResponse> getMealById(String id);
+
+    public Single<ApiResponse.MealResponse> searchMealByName(String mealName);
+
 
     public Flowable<List<MealEntity>> getAllMeals(String userEmail);
 
