@@ -21,11 +21,14 @@ public interface Repository {
 
     public void removePreferences();
 
+    public String getUserEmail();
+
     public void signInApp(String email, String password, FirebaseAuthCallback callback);
 
     public void signUpApp(String email, String password, FirebaseAuthCallback callback);
 
     public void signOutApp();
+
 
     public Single<ApiResponse.CategoryResponse> getAllCategories();
 
@@ -33,11 +36,18 @@ public interface Repository {
 
     public Single<ApiResponse.AreaResponse>  getAreasList();
 
-    // complite from here
+    public Single<ApiResponse.MealResponse> getMealsByCategory(String category);
 
-    public Single<List<MealData>> getMealsByCategory(String category);
+    public Single<ApiResponse.MealResponse> getMealsByArea(String area);
 
-    public Single<MealData> getMealById(String id);
+    public Single<ApiResponse.MealResponse> getMealsByIngredient(String ingredient);
+
+    public Single<ApiResponse.MealResponse> getRandomMeal();
+
+    public Single<ApiResponse.MealResponse> getMealById(String id);
+
+    public Single<ApiResponse.MealResponse> searchMealByName(String mealName);
+
 
     public Flowable<List<MealEntity>> getAllMeals(String userEmail);
 

@@ -17,28 +17,23 @@ public interface RetrofitManager {
     public Single<ApiResponse.IngredientResponse> fetchAllIngredients();
 
     // All Areas
-    public Single<ApiResponse.AreaResponse>  fetchAreasList();
-
-    // complite from here
-
-    // List of Areas
-    Single<List<AreaData>> fetchMealsByAreas(String Area);
+    public Single<ApiResponse.AreaResponse>  fetchAllAreas();
 
     // Meals By Category
-    Single<List<MealData>> fetchMealsByCategory(String category);
-
-    // Meals By Ingredient
-    Single<List<MealData>> fetchMealsByIngredient(String ingredient);
+    Single<ApiResponse.MealResponse> fetchMealsByCategory(String category);
 
     // Meals By Area
-    Single<List<MealData>> fetchMealsByArea(String area);
+    public Single<ApiResponse.MealResponse> fetchMealsByAreas(String area);
+
+    // Meals By Ingredient
+    Single<ApiResponse.MealResponse> fetchMealsByIngredient(String ingredient);
 
     // Random Meal
-    Single<MealData> fetchRandomMeal();
+    Single<ApiResponse.MealResponse> fetchRandomMeal();
 
     // Meal By ID
-    Single<MealData> fetchMealById(String mealId);
+    Single<ApiResponse.MealResponse> fetchMealById(String mealId);
 
     // Search Meal By Name
-    Single<List<MealData>> searchMealByName(String mealName);
+    Single<ApiResponse.MealResponse>searchMealByName(String mealName);
 }

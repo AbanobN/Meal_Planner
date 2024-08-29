@@ -50,76 +50,92 @@ public class AppRepo implements Repository{
     }
 
     //Prefrences
+
+    @Override
     public boolean readPreferences() {
         return shPer.readFromPreferences();
     }
 
+    @Override
     public void writePreferences(String email, String password) {
         shPer.addToPreferences(email, password);
     }
 
+    @Override
     public void removePreferences() {
         shPer.removePreferences();
     }
 
+    @Override
     public String getUserEmail(){
         return shPer.getEmail();
     }
 
     // firebase Auth
+
+    @Override
     public void signInApp(String email, String password, FirebaseAuthCallback callback) {
         firebaseAuth.signIn(email, password, callback);
     }
 
+    @Override
     public void signUpApp(String email, String password, FirebaseAuthCallback callback) {
         firebaseAuth.signUp(email, password, callback);
     }
 
+    @Override
     public void signOutApp() {
         firebaseAuth.signOut();
     }
 
     //Retrofit
+
+    @Override
     public Single<ApiResponse.CategoryResponse> getAllCategories()
     {
         return retrofitManagerImp.fetchCategories();
     }
 
+    @Override
     public Single<ApiResponse.IngredientResponse> getAllIngredients() {
         return retrofitManagerImp.fetchAllIngredients();
     }
 
+    @Override
     public Single<ApiResponse.AreaResponse>  getAreasList() {
-        return retrofitManagerImp.fetchAreasList();
+        return retrofitManagerImp.fetchAllAreas();
     }
 
-    // complite from here
-
-    public Single<List<MealData>> getMealsByCategory(String category) {
+    @Override
+    public Single<ApiResponse.MealResponse> getMealsByCategory(String category) {
         return retrofitManagerImp.fetchMealsByCategory(category);
     }
 
-    public Single<List<MealData>> getMealsByArea(String area) {
-        return retrofitManagerImp.fetchMealsByArea(area);
+    @Override
+    public Single<ApiResponse.MealResponse> getMealsByArea(String area) {
+        return retrofitManagerImp.fetchMealsByAreas(area);
     }
 
-    public Single<List<MealData>> getMealsByIngredient(String ingredient) {
+    @Override
+    public Single<ApiResponse.MealResponse> getMealsByIngredient(String ingredient) {
         return retrofitManagerImp.fetchMealsByIngredient(ingredient);
     }
 
-    public Single<MealData> getRandomMeal() {
+    @Override
+    public Single<ApiResponse.MealResponse> getRandomMeal() {
         return retrofitManagerImp.fetchRandomMeal();
     }
 
-    public Single<MealData> getMealById(String id) {
+    @Override
+    public Single<ApiResponse.MealResponse> getMealById(String id) {
 
         return retrofitManagerImp.fetchMealById(id);
     }
 
-    public Single<List<MealData>> searchMealByName(String mealName) {
+    @Override
+    public Single<ApiResponse.MealResponse> searchMealByName(String mealName) {
         return retrofitManagerImp.searchMealByName(mealName);
     }
-
 
     //Database
     //FavoritesTable
