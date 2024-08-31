@@ -11,9 +11,9 @@ public class HomePersenter implements HomePer{
     private AppRepo repo;
     private final String userEmail;
 
-    public HomePersenter(Context context, HomeActivity view) {
+    public HomePersenter(AppRepo repo, HomeActivity view) {
         this.view = view;
-        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo = repo;
         this.userEmail = repo.getUserEmail();
     }
 

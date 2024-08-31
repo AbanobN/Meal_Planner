@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.authentication.AuthenticationActivity;
 import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;
 import com.example.mealplanner.ui.splash.presenter.SplashPresenter;
@@ -28,7 +30,8 @@ public class SplashActivity extends AppCompatActivity implements SplashView{
             getSupportActionBar().hide();
         }
 
-        presenter = new SplashPresenter(this, this);
+        AppRepo repo =(AppRepo) RepositoryProvider.provideRepository(this);
+        presenter = new SplashPresenter(repo, this);
         presenter.isAppUser();
         presenter.start(5L);
 

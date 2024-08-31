@@ -18,9 +18,9 @@ public class SearchPresenterImp implements SearchPresenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final String userEmail;
 
-    public SearchPresenterImp(Context context, SearchFragment view) {
+    public SearchPresenterImp(AppRepo repo, SearchFragment view) {
         this.view = view;
-        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo = repo;
         userEmail = repo.getUserEmail();
     }
 

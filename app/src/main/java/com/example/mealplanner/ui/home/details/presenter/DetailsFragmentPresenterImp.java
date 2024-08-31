@@ -24,9 +24,9 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private String user;
 
-    public DetailsFragmentPresenterImp(Context context, DetailsFragment view) {
+    public DetailsFragmentPresenterImp(AppRepo repo, DetailsFragment view) {
         this.view = view;
-        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo = repo;
         user = repo.getUserEmail();
     }
 

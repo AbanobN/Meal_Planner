@@ -24,9 +24,9 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final String userEmail;
 
-    public HomeFragmentPresenterImp(Context context, HomeFragment view) {
+    public HomeFragmentPresenterImp(AppRepo repo, HomeFragment view) {
         this.view = view;
-        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo = repo;
         userEmail = repo.getUserEmail();
     }
 

@@ -13,7 +13,7 @@ import com.example.mealplanner.data.remotedata.retrofit.RetrofitManagerImp;
 public class RepositoryProvider {
 
     public static Repository provideRepository(Context context) {
-        FirebaseManger authModel = new FirebaseManger();
+        FirebaseManger authModel = new FirebaseManger(context);
         RetrofitManagerImp retrofitManagerImp = new RetrofitManagerImp();
         DataBaseMangerImp dataBaseMangerImp = new DataBaseMangerImp(context);
         FirebaseDatabaseServiceImp firebaseDatabaseServiceImp = new FirebaseDatabaseServiceImp();

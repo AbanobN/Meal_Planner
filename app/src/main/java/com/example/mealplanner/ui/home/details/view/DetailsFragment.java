@@ -22,6 +22,8 @@ import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.details.presenter.DetailsFragmentPresenterImp;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -61,7 +63,8 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         ingredientadapter = new IngredientAdapter(new ArrayList<>());
         ingredientRecyclerView.setAdapter(ingredientadapter);
 
-        presenter = new DetailsFragmentPresenterImp(getContext(),this);
+        AppRepo repo = (AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new DetailsFragmentPresenterImp(repo,this);
 
 
         return view;

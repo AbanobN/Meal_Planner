@@ -16,6 +16,7 @@ import com.example.mealplanner.data.remotedata.firebasedatabase.FirebaseDatabase
 import com.example.mealplanner.data.remotedata.firebasedatabase.SyncServiceImp;
 import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitManagerImp;
+import com.example.mealplanner.ui.authentication.login.presenter.OnLoginWithGmailResponse;
 
 import java.util.List;
 
@@ -86,6 +87,12 @@ public class AppRepo implements Repository{
     @Override
     public void signOutApp() {
         firebaseAuth.signOut();
+    }
+
+    @Override
+    public void signInWithGoogle(String idToken, OnLoginWithGmailResponse listener)
+    {
+        firebaseAuth.signInUsingGmailAccount(idToken,listener);
     }
 
     //Retrofit

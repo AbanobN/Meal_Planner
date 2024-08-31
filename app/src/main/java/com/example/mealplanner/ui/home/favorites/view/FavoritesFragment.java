@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.favorites.presenter.FavoritesPresenter;
 import com.example.mealplanner.ui.home.favorites.presenter.FavoritesPresenterImpl;
 
@@ -40,8 +43,8 @@ public class FavoritesFragment extends Fragment implements FavoritesView, MealAd
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize the presenter
-        favoritesPresenter = new FavoritesPresenterImpl(this, getContext());
+        AppRepo repo = (AppRepo) RepositoryProvider.provideRepository(getContext());
+        favoritesPresenter = new FavoritesPresenterImpl(this, repo);
     }
 
     @Override
@@ -127,17 +130,19 @@ public class FavoritesFragment extends Fragment implements FavoritesView, MealAd
         meals.addAll(mealEntities);
         mealAdapter.updateMealDataList(meals);
 
+        Log.d("TAG1", "showMeals: " + mealEntities.size());
+
         // Update AutoComplete suggestions
         mealNames.clear();
         mealNames.addAll(mealEntities.stream().map(MealEntity::getMealName).collect(Collectors.toList()));
         ((ArrayAdapter<String>) searchBar.getAdapter()).notifyDataSetChanged();
     }
 
-    @Override
-    public void showMealAdded() {
-        // Handle meal added success and refresh the list
-        favoritesPresenter.loadAllMeals();
-    }
+//    @Override
+//    public void showMealAdded() {
+//        // Handle meal added success and refresh the list
+//        favoritesPresenter.loadAllMeals();
+//    }
 
     @Override
     public void showMealRemoved() {

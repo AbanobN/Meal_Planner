@@ -23,6 +23,8 @@ import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenterImp;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -66,8 +68,8 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        presenter = new SearchPresenterImp(getContext(), this);
+        AppRepo repo =(AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new SearchPresenterImp(repo, this);
 
         presenter.loadAllMeals();
 

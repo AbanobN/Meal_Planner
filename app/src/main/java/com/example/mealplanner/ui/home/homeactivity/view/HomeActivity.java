@@ -12,6 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.authentication.AuthenticationActivity;
 import com.example.mealplanner.ui.home.homeactivity.presenter.HomePersenter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,8 +27,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        homePersenter = new HomePersenter(this,this);
+        AppRepo repo = (AppRepo) RepositoryProvider.provideRepository(this);
+        homePersenter = new HomePersenter(repo,this);
         homePersenter.syncData();
 
         if (getSupportActionBar() != null) {

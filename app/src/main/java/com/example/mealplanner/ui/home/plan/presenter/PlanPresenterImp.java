@@ -23,9 +23,9 @@ public class PlanPresenterImp implements PlanPresenter {
     private final String userEmail;
 
 
-    public PlanPresenterImp(PlanFragment view, Context context) {
+    public PlanPresenterImp(PlanFragment view, AppRepo repo) {
         this.view = view;
-        this.repo =  (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo =  repo;
         userEmail = repo.getUserEmail();
     }
 

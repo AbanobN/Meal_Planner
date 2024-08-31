@@ -1,6 +1,7 @@
 package com.example.mealplanner.ui.home.favorites.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.model.MealEntity;
@@ -14,50 +15,37 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 public class FavoritesPresenterImpl implements FavoritesPresenter {
 
     private final FavoritesView favoritesView;
-    private final AppRepo appRepo;
+    private final AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final String userEmail;
 
-    public FavoritesPresenterImpl(FavoritesView favoritesView, Context context) {
+    public FavoritesPresenterImpl(FavoritesView favoritesView, AppRepo repo) {
         this.favoritesView = favoritesView;
-        this.appRepo = (AppRepo) RepositoryProvider.provideRepository(context);
-        userEmail = appRepo.getUserEmail();
+        this.repo = repo;
+        userEmail = repo.getUserEmail();
     }
 
     @Override
     public void loadAllMeals() {
         compositeDisposable.add(
-                appRepo.getAllMeals(userEmail)
+                repo.getAllMeals(userEmail)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                mealEntities -> favoritesView.showMeals(mealEntities),
+                                favoritesView::showMeals,
                                 throwable -> favoritesView.showError(throwable.getMessage())
                         )
         );
     }
 
-//    @Override
-//    public void addMeal(MealEntity mealEntity) {
-//        compositeDisposable.add(
-//                appRepo.insertMeal(mealEntity)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(
-//                                () -> favoritesView.showMealAdded(),
-//                                throwable -> favoritesView.showError(throwable.getMessage())
-//                        )
-//        );
-//    }
-
     @Override
     public void removeMeal(MealEntity mealEntity) {
         compositeDisposable.add(
-                appRepo.deleteMeal(mealEntity)
+                repo.deleteMeal(mealEntity)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                () -> favoritesView.showMealRemoved(),
+                                favoritesView::showMealRemoved,
                                 throwable -> favoritesView.showError(throwable.getMessage())
                         )
         );

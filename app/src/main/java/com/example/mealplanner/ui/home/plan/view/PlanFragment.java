@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.PlanEntity;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.plan.presenter.PlanPresenterImp;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,8 @@ public class PlanFragment extends Fragment implements PlanAdapter.OnPlanClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new PlanPresenterImp(this,this.getContext());
+        AppRepo repo =(AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new PlanPresenterImp(this,repo);
     }
 
     @Override
