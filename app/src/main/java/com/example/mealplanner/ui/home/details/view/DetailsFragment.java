@@ -30,6 +30,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DetailsFragment extends Fragment  implements DetailsFragmentView{
     private ImageView mealImage;
@@ -93,12 +94,19 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
 
 
         addToPlanBtn.setOnClickListener(v -> {
-            WeekPickerDialog weekPickerDialog = new WeekPickerDialog(getContext(), selectedDate -> {
-                Log.d("SelectedDate", "onClick: " + selectedDate);
-                presenter.addToplan(theMeal,selectedDate);
-            });
-            weekPickerDialog.show();
+            Calendar startOfWeek = Calendar.getInstance();
+            startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
+            Calendar endOfWeek = Calendar.getInstance();
+            endOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+
+            WeekPickerDialog weekPickerDialog = new WeekPickerDialog(requireContext(), selectedDate -> {
+                Log.d("SelectedDate", "Selected date: " + selectedDate);
+                if (presenter != null && theMeal != null) {
+                    presenter.addToplan(theMeal, selectedDate);
+                }
+            }, startOfWeek, endOfWeek);
+            weekPickerDialog.show();
         });
 
     }
