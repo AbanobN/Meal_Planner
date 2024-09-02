@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.MealData;
@@ -25,6 +26,7 @@ import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.repo.AppRepo;
 import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.details.presenter.DetailsFragmentPresenterImp;
+import com.example.mealplanner.ui.home.homeactivity.view.NetworkUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -35,6 +37,7 @@ import java.util.Calendar;
 public class DetailsFragment extends Fragment  implements DetailsFragmentView{
     private ImageView mealImage;
     private TextView mealTitle, instructions;
+    private LottieAnimationView lottieAnimationView;
 
     private RecyclerView ingredientRecyclerView;
     private IngredientAdapter ingredientadapter;
