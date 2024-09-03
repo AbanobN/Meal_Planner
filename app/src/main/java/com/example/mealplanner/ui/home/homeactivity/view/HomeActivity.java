@@ -69,6 +69,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     handelLogout();
                     return true;
                 }
+
+                if (navController.getCurrentDestination() != null&& navController.getCurrentDestination().getId() == item.getItemId()) {
+
+                    navController.navigate(item.getItemId());
+                    return true;
+                }
+
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }
         });
