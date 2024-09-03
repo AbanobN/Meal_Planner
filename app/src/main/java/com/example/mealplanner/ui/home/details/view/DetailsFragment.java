@@ -33,8 +33,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
-public class DetailsFragment extends Fragment  implements DetailsFragmentView{
+public class DetailsFragment extends Fragment implements DetailsFragmentView {
     private ImageView mealImage;
     private TextView mealTitle, instructions;
     private LottieAnimationView lottieAnimationView;
@@ -68,7 +69,7 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         ingredientRecyclerView.setAdapter(ingredientadapter);
 
         AppRepo repo = (AppRepo) RepositoryProvider.provideRepository(getContext());
-        presenter = new DetailsFragmentPresenterImp(repo,this);
+        presenter = new DetailsFragmentPresenterImp(repo, this);
 
 
         return view;
@@ -81,11 +82,9 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         DetailsFragmentArgs args = DetailsFragmentArgs.fromBundle(getArguments());
         String mealId = args.getMeaId();
 
-        if(args.getScreenCameFrom().equals("Favorites"))
-        {
+        if (args.getScreenCameFrom().equals("Favorites")) {
             addToFavoritesBtn.setVisibility(View.GONE);
-        }
-        else if (args.getScreenCameFrom().equals("Plan")) {
+        } else if (args.getScreenCameFrom().equals("Plan")) {
             addToPlanBtn.setVisibility(View.GONE);
 
         }
@@ -93,7 +92,6 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         presenter.getMealById(mealId);
 
         addToFavoritesBtn.setOnClickListener(v -> presenter.addToFavorite(theMeal));
-
 
 
         addToPlanBtn.setOnClickListener(v -> {
@@ -115,9 +113,8 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
     }
 
     @Override
-    public void updateDetails(MealData mealData)
-    {
-        theMeal = new MealEntity(mealData.getIdMeal(),mealData.getStrMeal(),mealData.getStrMealThumb(),"");
+    public void updateDetails(MealData mealData) {
+        theMeal = new MealEntity(mealData.getIdMeal(), mealData.getStrMeal(), mealData.getStrMealThumb(), "");
 
         ingredientadapter.updateIngredientDataList(mealData.getIngredients());
 
@@ -137,8 +134,8 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                     //if your url is something like this -> https://www.youtube.com/watch?v=EzyXVfyx7CU
-                    Log.d("MealVideo", "updateMeal:"+extractVideoId(mealData.getStrYoutube()));
-                    Log.d("MealVideo", "updateMeal:"+mealData.getStrYoutube());
+                    Log.d("MealVideo", "updateMeal:" + extractVideoId(mealData.getStrYoutube()));
+                    Log.d("MealVideo", "updateMeal:" + mealData.getStrYoutube());
 
                     youTubePlayer.loadVideo(extractVideoId(mealData.getStrYoutube()), 0);
                 }
@@ -148,7 +145,7 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
     }
 
     @Override
-    public  String extractVideoId(String url) {
+    public String extractVideoId(String url) {
         String[] parts = url.split("\\?");
         if (parts.length > 1) {
             String query = parts[1];
@@ -165,15 +162,16 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
     }
 
     @Override
-    public void showToast(String msg)
-    {
-        Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
+    public void showToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showError(Throwable t)
-    {
-        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    public void showError(Throwable t) {
+        if (!Objects.equals(t.getMessage(), "Unable to resolve host \"www.themealdb.com\": No address associated with hostname"))
+        {
+            Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

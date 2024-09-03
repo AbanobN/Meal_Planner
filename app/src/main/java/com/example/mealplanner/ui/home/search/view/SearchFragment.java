@@ -31,6 +31,7 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -218,7 +219,10 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public void handleError(Throwable t)
     {
-        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        if(!Objects.equals(t.getMessage(), "Unable to resolve host \"www.themealdb.com\": No address associated with hostname"))
+        {
+            Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

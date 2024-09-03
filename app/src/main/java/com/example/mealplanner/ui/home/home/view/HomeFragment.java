@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +107,10 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     @Override
     public void handError(Throwable t)
     {
-        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        if(!Objects.equals(t.getMessage(), "Unable to resolve host \"www.themealdb.com\": No address associated with hostname"))
+        {
+            Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
