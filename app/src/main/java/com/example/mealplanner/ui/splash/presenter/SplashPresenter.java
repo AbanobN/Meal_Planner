@@ -16,9 +16,9 @@ public class SplashPresenter implements SplashPre{
     private SplashView _view;
     private AppRepo repo;
 
-    public SplashPresenter(Context context, SplashView view) {
+    public SplashPresenter(AppRepo repo, SplashView view) {
         this._view = view;
-        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo = repo;
     }
 
     @Override

@@ -24,9 +24,9 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final String userEmail;
 
-    public HomeFragmentPresenterImp(Context context, HomeFragment view) {
+    public HomeFragmentPresenterImp(AppRepo repo, HomeFragment view) {
         this.view = view;
-        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo = repo;
         userEmail = repo.getUserEmail();
     }
 
@@ -98,9 +98,9 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     }
 
     @Override
-    public void addToFavorite(MealEntity meal)
+    public void addToFavorite(MealData mealdata)
     {
-        meal.setUserEmail(userEmail);
+        MealEntity meal = new MealEntity(mealdata.getIdMeal(),mealdata.getStrMeal(),mealdata.getStrMealThumb(),userEmail);
         compositeDisposable.add(
                 repo.insertMeal(meal)
                         .subscribeOn(Schedulers.io())

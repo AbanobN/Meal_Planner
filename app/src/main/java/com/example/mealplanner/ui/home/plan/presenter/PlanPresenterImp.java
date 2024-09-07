@@ -23,9 +23,9 @@ public class PlanPresenterImp implements PlanPresenter {
     private final String userEmail;
 
 
-    public PlanPresenterImp(PlanFragment view, Context context) {
+    public PlanPresenterImp(PlanFragment view, AppRepo repo) {
         this.view = view;
-        this.repo =  (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo =  repo;
         userEmail = repo.getUserEmail();
     }
 
@@ -77,9 +77,9 @@ public class PlanPresenterImp implements PlanPresenter {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
-                            Log.d("Delete", "Plan successfully deleted.");
+                            view.showToast("Plan successfully deleted.");
                         }, throwable -> {
-                            Log.e("Delete", "Error deleting plan: " + throwable.getMessage());
+                            view.showToast("Error deleting plan: " + throwable.getMessage());
                         })
         );
     }

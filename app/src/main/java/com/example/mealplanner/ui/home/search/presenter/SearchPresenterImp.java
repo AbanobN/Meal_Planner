@@ -1,10 +1,9 @@
 package com.example.mealplanner.ui.home.search.presenter;
 
-import android.content.Context;
+import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
 import com.example.mealplanner.data.repo.AppRepo;
-import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.search.view.SearchFragment;
 import java.util.ArrayList;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -14,13 +13,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchPresenterImp implements SearchPresenter {
     private final SearchFragment view;
-    private AppRepo repo;
+    private final AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final String userEmail;
 
-    public SearchPresenterImp(Context context, SearchFragment view) {
+    public SearchPresenterImp(AppRepo repo, SearchFragment view) {
         this.view = view;
-        this.repo = (AppRepo) RepositoryProvider.provideRepository(context);
+        this.repo = repo;
         userEmail = repo.getUserEmail();
     }
 
@@ -155,9 +154,9 @@ public class SearchPresenterImp implements SearchPresenter {
     }
 
     @Override
-    public void addToFavorite(MealEntity meal)
+    public void addToFavorite(MealData mealdata)
     {
-        meal.setUserEmail(userEmail);
+        MealEntity meal = new MealEntity(mealdata.getIdMeal() , mealdata.getStrMeal(),mealdata.getStrMealThumb() , userEmail);
 
         compositeDisposable.add(
                 repo.insertMeal(meal)

@@ -23,12 +23,15 @@ import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.IngredientData;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.search.presenter.SearchPresenterImp;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -66,8 +69,8 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        presenter = new SearchPresenterImp(getContext(), this);
+        AppRepo repo =(AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new SearchPresenterImp(repo, this);
 
         presenter.loadAllMeals();
 
@@ -210,13 +213,16 @@ public class SearchFragment extends Fragment implements SearchView {
 
     @Override
     public void insertIntoFav(MealData meal) {
-        presenter.addToFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+        presenter.addToFavorite(meal);
     }
 
     @Override
     public void handleError(Throwable t)
     {
-        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        if(!Objects.equals(t.getMessage(), "Unable to resolve host \"www.themealdb.com\": No address associated with hostname"))
+        {
+            Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

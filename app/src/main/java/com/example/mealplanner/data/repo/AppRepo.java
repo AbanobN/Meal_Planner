@@ -16,6 +16,7 @@ import com.example.mealplanner.data.remotedata.firebasedatabase.FirebaseDatabase
 import com.example.mealplanner.data.remotedata.firebasedatabase.SyncServiceImp;
 import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
 import com.example.mealplanner.data.remotedata.retrofit.RetrofitManagerImp;
+import com.example.mealplanner.ui.authentication.login.presenter.OnLoginWithGmailResponse;
 
 import java.util.List;
 
@@ -32,19 +33,19 @@ public class AppRepo implements Repository{
     private FirebaseDatabaseServiceImp firebaseDatabaseServiceImp;
     private SyncServiceImp syncServiceImp;
 
-    private AppRepo(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManagerImp retrofitManagerImp, DataBaseMangerImp dataBaseMangerImp) {
+    private AppRepo(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManagerImp retrofitManagerImp, DataBaseMangerImp dataBaseMangerImp, FirebaseDatabaseServiceImp firebaseDatabaseServiceImp,SyncServiceImp syncServiceImp) {
         this.firebaseAuth = firebaseAuth;
         this.shPer = shPer;
         this.retrofitManagerImp = retrofitManagerImp;
         this.dataBaseMangerImp = dataBaseMangerImp;
-        this.firebaseDatabaseServiceImp = new FirebaseDatabaseServiceImp();
-        this.syncServiceImp = new SyncServiceImp(firebaseDatabaseServiceImp, dataBaseMangerImp);
+        this.firebaseDatabaseServiceImp = firebaseDatabaseServiceImp;
+        this.syncServiceImp = syncServiceImp;
 
     }
 
-    public static AppRepo getInstance(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManagerImp retrofitManagerImp, DataBaseMangerImp dataBaseMangerImp) {
+    public static AppRepo getInstance(FirebaseManger firebaseAuth, SharedPerferencesManger shPer, RetrofitManagerImp retrofitManagerImp, DataBaseMangerImp dataBaseMangerImp ,FirebaseDatabaseServiceImp firebaseDatabaseServiceImp,SyncServiceImp syncServiceImp) {
         if (instance == null) {
-            instance = new AppRepo(firebaseAuth, shPer, retrofitManagerImp, dataBaseMangerImp);
+            instance = new AppRepo(firebaseAuth, shPer, retrofitManagerImp, dataBaseMangerImp ,firebaseDatabaseServiceImp,syncServiceImp);
         }
         return instance;
     }
@@ -86,6 +87,12 @@ public class AppRepo implements Repository{
     @Override
     public void signOutApp() {
         firebaseAuth.signOut();
+    }
+
+    @Override
+    public void signInWithGoogle(String idToken, OnLoginWithGmailResponse listener)
+    {
+        firebaseAuth.signInUsingGmailAccount(idToken,listener);
     }
 
     //Retrofit

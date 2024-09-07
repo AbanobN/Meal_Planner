@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.CategorieData;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.home.presenter.HomeFragmentPresenterImp;
 
 public class HomeFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener, MealAdapter.OnMealClickListener  , HomeFragmentView {
@@ -52,7 +56,9 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        presenter = new HomeFragmentPresenterImp(getContext(),this);
+
+        AppRepo repo =(AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new HomeFragmentPresenterImp(repo,this);
         presenter.getRandomMeal();
         presenter.loadAllMeals();
 
@@ -101,7 +107,10 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     @Override
     public void handError(Throwable t)
     {
-        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        if(!Objects.equals(t.getMessage(), "Unable to resolve host \"www.themealdb.com\": No address associated with hostname"))
+        {
+            Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -145,7 +154,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
     @Override
     public void insertIntoFav(MealData meal) {
-        presenter.addToFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+        presenter.addToFavorite(meal);
     }
 
 }

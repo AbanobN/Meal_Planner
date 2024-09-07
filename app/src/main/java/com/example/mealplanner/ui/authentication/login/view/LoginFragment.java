@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.authentication.login.presenter.LoginPresenterImpl;
 import com.example.mealplanner.ui.authentication.login.presenter.OnLoginWithGmailResponse;
 import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;
@@ -30,7 +32,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class LoginFragment extends Fragment implements LoginView, OnLoginWithGmailResponse {
+public class LoginFragment extends Fragment implements LoginView{
 
     private LoginPresenterImpl presenter;
     EditText emailField;
@@ -40,7 +42,6 @@ public class LoginFragment extends Fragment implements LoginView, OnLoginWithGma
     Context view;
     ImageButton googleBtn;
     Button guestBtn;
-
     private GoogleSignInClient mGoogleSignInClient;
     private final int RC_SIGN_IN = 20;
 
@@ -59,7 +60,8 @@ public class LoginFragment extends Fragment implements LoginView, OnLoginWithGma
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new LoginPresenterImpl(getContext(),this);
+        AppRepo repo = (AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new LoginPresenterImpl(repo,this);
 
         emailField = view.findViewById(R.id.emailField);
         passwordField = view.findViewById(R.id.passwordField);
@@ -93,18 +95,6 @@ public class LoginFragment extends Fragment implements LoginView, OnLoginWithGma
     }
 
 
-    @Override
-    public void onSignInSuccess() {
-        Intent intent = new Intent(getActivity(), HomeActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onSignInFailure(String error)
-    {
-        Toast.makeText(view, "Login Failed", Toast.LENGTH_SHORT).show();
-    }
-
     private void signInUsingGoogle() {
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -125,7 +115,7 @@ public class LoginFragment extends Fragment implements LoginView, OnLoginWithGma
             try {
                 GoogleSignInAccount account = accountTask.getResult(ApiException.class);
                 if (account != null) {
-                    presenter.signInUsingGmailAccount(account.getIdToken(), this);
+                    presenter.signInUsingGmailAccount(account.getIdToken());
                 }
             } catch (ApiException e) {
                 Toast.makeText(this.getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -134,13 +124,15 @@ public class LoginFragment extends Fragment implements LoginView, OnLoginWithGma
     }
 
     @Override
-    public void onLoginWithGmailSuccess() {
+    public void onSignInSuccess() {
         Intent intent = new Intent(getActivity(), HomeActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void onLoginWithGmailError(String error) {
-        Log.d("TAG1", "onLoginWithGmailError: " + error);
+    public void onSignInFailure(String error)
+    {
+        Toast.makeText(view, "Login Failed", Toast.LENGTH_SHORT).show();
     }
+
 }

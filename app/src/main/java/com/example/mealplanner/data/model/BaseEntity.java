@@ -1,14 +1,8 @@
 package com.example.mealplanner.data.model;
 
-import androidx.annotation.NonNull;
-import androidx.room.PrimaryKey;
-
 public abstract class BaseEntity {
 
-    @NonNull
-    @PrimaryKey
     private String id;
-
     private String mealName;
     private String mealUrlImg;
     private String userEmail;

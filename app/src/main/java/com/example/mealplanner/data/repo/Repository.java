@@ -8,6 +8,7 @@ import com.example.mealplanner.data.model.PlanEntity;
 import com.example.mealplanner.data.remotedata.firebaseauth.FirebaseAuthCallback;
 import com.example.mealplanner.data.model.MealEntity;
 import com.example.mealplanner.data.remotedata.retrofit.ApiResponse;
+import com.example.mealplanner.ui.authentication.login.presenter.OnLoginWithGmailResponse;
 
 import java.util.List;
 import io.reactivex.rxjava3.core.Flowable;
@@ -29,6 +30,7 @@ public interface Repository {
 
     public void signOutApp();
 
+    public void signInWithGoogle(String idToken, OnLoginWithGmailResponse listener);
 
     public Single<ApiResponse.CategoryResponse> getAllCategories();
 

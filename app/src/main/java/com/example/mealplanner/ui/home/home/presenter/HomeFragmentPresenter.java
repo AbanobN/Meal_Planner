@@ -1,5 +1,6 @@
 package com.example.mealplanner.ui.home.home.presenter;
 
+import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
 
 public interface HomeFragmentPresenter {
@@ -11,7 +12,7 @@ public interface HomeFragmentPresenter {
 
     void loadAllMeals();
 
-    void addToFavorite(MealEntity meal);
+    void addToFavorite(MealData mealdata);
 
     void removeFromFavorite(MealEntity meal);
 }

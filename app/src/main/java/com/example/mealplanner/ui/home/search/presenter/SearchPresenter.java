@@ -1,5 +1,6 @@
 package com.example.mealplanner.ui.home.search.presenter;
 
+import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
 
 public interface SearchPresenter {
@@ -19,7 +20,7 @@ public interface SearchPresenter {
 
     void loadAllMeals();
 
-    void addToFavorite(MealEntity meal);
+    void addToFavorite(MealData mealdate);
 
     void removeFromFavorite(MealEntity meal);
 

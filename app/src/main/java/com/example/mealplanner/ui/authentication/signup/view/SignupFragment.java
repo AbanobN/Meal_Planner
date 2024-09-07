@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenter;
 import com.example.mealplanner.ui.authentication.signup.presenter.SignupPresenterImpl;
 import com.example.mealplanner.ui.home.homeactivity.view.HomeActivity;
@@ -48,7 +50,9 @@ public class SignupFragment extends Fragment implements SignupView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new SignupPresenterImpl(getContext(),this);
+
+        AppRepo repo = (AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new SignupPresenterImpl(repo,this);
 
         this.view = view.getContext();
         userEmail = view.findViewById(R.id.semailFeild);

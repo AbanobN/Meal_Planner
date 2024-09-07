@@ -19,4 +19,5 @@
         <!-- Hide the close icon if not needed -->
         <item name="closeIconEnabled">false</item>
     </style>
+
 </resources>

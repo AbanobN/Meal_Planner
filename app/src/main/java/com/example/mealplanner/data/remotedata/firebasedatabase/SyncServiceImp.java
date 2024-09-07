@@ -63,8 +63,6 @@ public class SyncServiceImp implements SyncService {
                 );
     }
 
-
-    // Call this method when you want to dispose of the subscription
     @Override
     public void dispose() {
         if (syncDisposable != null && !syncDisposable.isDisposed()) {

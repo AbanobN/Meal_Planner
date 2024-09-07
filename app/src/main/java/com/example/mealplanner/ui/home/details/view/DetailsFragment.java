@@ -18,20 +18,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.model.MealData;
 import com.example.mealplanner.data.model.MealEntity;
+import com.example.mealplanner.data.repo.AppRepo;
+import com.example.mealplanner.data.repo.RepositoryProvider;
 import com.example.mealplanner.ui.home.details.presenter.DetailsFragmentPresenterImp;
+import com.example.mealplanner.ui.home.homeactivity.view.NetworkUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Objects;
 
-public class DetailsFragment extends Fragment  implements DetailsFragmentView{
+public class DetailsFragment extends Fragment implements DetailsFragmentView {
     private ImageView mealImage;
     private TextView mealTitle, instructions;
+    private LottieAnimationView lottieAnimationView;
 
     private RecyclerView ingredientRecyclerView;
     private IngredientAdapter ingredientadapter;
@@ -61,7 +68,8 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         ingredientadapter = new IngredientAdapter(new ArrayList<>());
         ingredientRecyclerView.setAdapter(ingredientadapter);
 
-        presenter = new DetailsFragmentPresenterImp(getContext(),this);
+        AppRepo repo = (AppRepo) RepositoryProvider.provideRepository(getContext());
+        presenter = new DetailsFragmentPresenterImp(repo, this);
 
 
         return view;
@@ -74,11 +82,9 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         DetailsFragmentArgs args = DetailsFragmentArgs.fromBundle(getArguments());
         String mealId = args.getMeaId();
 
-        if(args.getScreenCameFrom().equals("Favorites"))
-        {
+        if (args.getScreenCameFrom().equals("Favorites")) {
             addToFavoritesBtn.setVisibility(View.GONE);
-        }
-        else if (args.getScreenCameFrom().equals("Plan")) {
+        } else if (args.getScreenCameFrom().equals("Plan")) {
             addToPlanBtn.setVisibility(View.GONE);
 
         }
@@ -88,22 +94,26 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
         addToFavoritesBtn.setOnClickListener(v -> presenter.addToFavorite(theMeal));
 
 
-
         addToPlanBtn.setOnClickListener(v -> {
-            WeekPickerDialog weekPickerDialog = new WeekPickerDialog(getContext(), selectedDate -> {
-                Log.d("SelectedDate", "onClick: " + selectedDate);
-                presenter.addToplan(theMeal,selectedDate);
-            });
-            weekPickerDialog.show();
+            Calendar startOfWeek = Calendar.getInstance();
+            startOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
+            Calendar endOfWeek = Calendar.getInstance();
+            endOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+
+            WeekPickerDialog weekPickerDialog = new WeekPickerDialog(requireContext(), selectedDate -> {
+                if (presenter != null && theMeal != null) {
+                    presenter.addToplan(theMeal, selectedDate);
+                }
+            }, startOfWeek, endOfWeek);
+            weekPickerDialog.show();
         });
 
     }
 
     @Override
-    public void updateDetails(MealData mealData)
-    {
-        theMeal = new MealEntity(mealData.getIdMeal(),mealData.getStrMeal(),mealData.getStrMealThumb(),"");
+    public void updateDetails(MealData mealData) {
+        theMeal = new MealEntity(mealData.getIdMeal(), mealData.getStrMeal(), mealData.getStrMealThumb(),presenter.getUser());
 
         ingredientadapter.updateIngredientDataList(mealData.getIngredients());
 
@@ -123,9 +133,6 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                     //if your url is something like this -> https://www.youtube.com/watch?v=EzyXVfyx7CU
-                    Log.d("MealVideo", "updateMeal:"+extractVideoId(mealData.getStrYoutube()));
-                    Log.d("MealVideo", "updateMeal:"+mealData.getStrYoutube());
-
                     youTubePlayer.loadVideo(extractVideoId(mealData.getStrYoutube()), 0);
                 }
             });
@@ -134,7 +141,7 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
     }
 
     @Override
-    public  String extractVideoId(String url) {
+    public String extractVideoId(String url) {
         String[] parts = url.split("\\?");
         if (parts.length > 1) {
             String query = parts[1];
@@ -151,15 +158,16 @@ public class DetailsFragment extends Fragment  implements DetailsFragmentView{
     }
 
     @Override
-    public void showToast(String msg)
-    {
-        Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
+    public void showToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showError(Throwable t)
-    {
-        Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    public void showError(Throwable t) {
+        if (!Objects.equals(t.getMessage(), "Unable to resolve host \"www.themealdb.com\": No address associated with hostname"))
+        {
+            Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
