@@ -60,7 +60,7 @@
                 android:layout_width="35dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/icon_color_selector"
+                android:backgroundTint="@color/black"
                 android:contentDescription="@string/cancel_button_desc"
                 android:src="@drawable/close" />
         </FrameLayout>

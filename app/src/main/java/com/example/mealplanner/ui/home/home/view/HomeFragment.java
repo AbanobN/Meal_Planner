@@ -154,7 +154,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
     @Override
     public void insertIntoFav(MealData meal) {
-        presenter.addToFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+        presenter.addToFavorite(meal);
     }
 
 }

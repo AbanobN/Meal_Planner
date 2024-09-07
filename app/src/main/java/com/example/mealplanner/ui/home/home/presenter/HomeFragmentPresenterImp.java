@@ -98,9 +98,9 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     }
 
     @Override
-    public void addToFavorite(MealEntity meal)
+    public void addToFavorite(MealData mealdata)
     {
-        meal.setUserEmail(userEmail);
+        MealEntity meal = new MealEntity(mealdata.getIdMeal(),mealdata.getStrMeal(),mealdata.getStrMealThumb(),userEmail);
         compositeDisposable.add(
                 repo.insertMeal(meal)
                         .subscribeOn(Schedulers.io())

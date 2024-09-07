@@ -114,7 +114,7 @@ public class DetailsFragment extends Fragment implements DetailsFragmentView {
 
     @Override
     public void updateDetails(MealData mealData) {
-        theMeal = new MealEntity(mealData.getIdMeal(), mealData.getStrMeal(), mealData.getStrMealThumb(), "");
+        theMeal = new MealEntity(mealData.getIdMeal(), mealData.getStrMeal(), mealData.getStrMealThumb(),presenter.getUser());
 
         ingredientadapter.updateIngredientDataList(mealData.getIngredients());
 

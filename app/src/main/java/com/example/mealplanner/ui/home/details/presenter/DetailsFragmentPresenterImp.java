@@ -22,6 +22,11 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter {
     private DetailsFragment view;
     private AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    public String getUser() {
+        return user;
+    }
+
     private String user;
 
     public DetailsFragmentPresenterImp(AppRepo repo, DetailsFragment view) {
@@ -55,7 +60,6 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter {
     @Override
     public void addToFavorite(MealEntity meal) {
         meal.setUserEmail(user);
-
         compositeDisposable.add(
                 repo.insertMeal(meal)
                         .subscribeOn(Schedulers.io())

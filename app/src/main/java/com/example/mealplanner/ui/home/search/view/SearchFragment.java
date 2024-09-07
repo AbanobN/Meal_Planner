@@ -213,7 +213,7 @@ public class SearchFragment extends Fragment implements SearchView {
 
     @Override
     public void insertIntoFav(MealData meal) {
-        presenter.addToFavorite(new MealEntity(meal.getIdMeal(),meal.getStrMeal(),meal.getStrMealThumb(),""));
+        presenter.addToFavorite(meal);
     }
 
     @Override

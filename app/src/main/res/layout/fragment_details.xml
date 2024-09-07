@@ -21,9 +21,9 @@
             <ImageView
                 android:id="@+id/mealImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="8dp"/>
+                android:layout_height="196dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop" />
 
             <!-- Meal Title -->
             <TextView
