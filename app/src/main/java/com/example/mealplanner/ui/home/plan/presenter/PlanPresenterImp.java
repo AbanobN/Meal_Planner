@@ -77,9 +77,9 @@ public class PlanPresenterImp implements PlanPresenter {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
-                            Log.d("Delete", "Plan successfully deleted.");
+                            view.showToast("Plan successfully deleted.");
                         }, throwable -> {
-                            Log.e("Delete", "Error deleting plan: " + throwable.getMessage());
+                            view.showToast("Error deleting plan: " + throwable.getMessage());
                         })
         );
     }

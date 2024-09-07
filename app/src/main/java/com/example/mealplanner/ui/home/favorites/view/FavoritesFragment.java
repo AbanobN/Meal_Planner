@@ -130,19 +130,12 @@ public class FavoritesFragment extends Fragment implements FavoritesView, MealAd
         meals.addAll(mealEntities);
         mealAdapter.updateMealDataList(meals);
 
-        Log.d("TAG1", "showMeals: " + mealEntities.size());
-
         // Update AutoComplete suggestions
         mealNames.clear();
         mealNames.addAll(mealEntities.stream().map(MealEntity::getMealName).collect(Collectors.toList()));
         ((ArrayAdapter<String>) searchBar.getAdapter()).notifyDataSetChanged();
     }
 
-//    @Override
-//    public void showMealAdded() {
-//        // Handle meal added success and refresh the list
-//        favoritesPresenter.loadAllMeals();
-//    }
 
     @Override
     public void showMealRemoved() {

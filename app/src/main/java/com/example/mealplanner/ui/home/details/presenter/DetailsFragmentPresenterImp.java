@@ -22,12 +22,11 @@ public class DetailsFragmentPresenterImp implements DetailsFragmentPresenter {
     private DetailsFragment view;
     private AppRepo repo;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final String user;
 
     public String getUser() {
         return user;
     }
-
-    private String user;
 
     public DetailsFragmentPresenterImp(AppRepo repo, DetailsFragment view) {
         this.view = view;

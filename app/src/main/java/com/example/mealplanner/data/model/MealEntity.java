@@ -19,15 +19,11 @@ public class MealEntity extends BaseEntity {
 
     public MealEntity(String id, @NonNull String mealName, String mealUrlImg, @NonNull String userEmail) {
         super(id, mealName, mealUrlImg, userEmail);
-        Log.d("MealEntity", "MealName: " + mealName);
-        Log.d("MealEntity", "UserEmail: " + userEmail);
 
-        String truncatedEmail = (userEmail != null && !userEmail.isEmpty() && userEmail.length() > 3)
-                ? userEmail.substring(0, 3)
-                : "defaultEmail";
+        String truncatedMealName = mealName.length() > 5 ? mealName.substring(0, 5) : mealName;
+        String truncatedEmail = userEmail.length() > 3 ? userEmail.substring(0, 3) : userEmail;
 
-        this.primaryKey = mealName + "_" + truncatedEmail;
-        Log.d("MealEntity", "primaryKey: " + primaryKey);
+        this.primaryKey = truncatedMealName + "_" + truncatedEmail;
     }
     @NonNull
     public String getPrimaryKey() {

@@ -20,7 +20,12 @@ public class PlanEntity extends BaseEntity {
     public PlanEntity(String id, @NonNull String mealName, String mealUrlImg, @NonNull String userEmail, @NonNull String weekDay) {
         super(id, mealName, mealUrlImg, userEmail);
         this.weekDay = weekDay;
-        primaryKey  = mealName + "_" + userEmail + "_" + weekDay;
+
+        String truncatedMealName = mealName.length() > 5 ? mealName.substring(0, 5) : mealName;
+        String truncatedEmail = userEmail.length() > 3 ? userEmail.substring(0, 3) : userEmail;
+        String truncatedWeekDay = weekDay.substring(0, 3);
+
+        primaryKey  = truncatedMealName + "_" + truncatedEmail + "_" + truncatedWeekDay;
     }
 
     public String getWeekDay() {

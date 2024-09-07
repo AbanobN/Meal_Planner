@@ -102,7 +102,6 @@ public class DetailsFragment extends Fragment implements DetailsFragmentView {
             endOfWeek.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 
             WeekPickerDialog weekPickerDialog = new WeekPickerDialog(requireContext(), selectedDate -> {
-                Log.d("SelectedDate", "Selected date: " + selectedDate);
                 if (presenter != null && theMeal != null) {
                     presenter.addToplan(theMeal, selectedDate);
                 }
@@ -134,9 +133,6 @@ public class DetailsFragment extends Fragment implements DetailsFragmentView {
                 @Override
                 public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                     //if your url is something like this -> https://www.youtube.com/watch?v=EzyXVfyx7CU
-                    Log.d("MealVideo", "updateMeal:" + extractVideoId(mealData.getStrYoutube()));
-                    Log.d("MealVideo", "updateMeal:" + mealData.getStrYoutube());
-
                     youTubePlayer.loadVideo(extractVideoId(mealData.getStrYoutube()), 0);
                 }
             });
